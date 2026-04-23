@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Momentus — Kickoff Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     MOMENTUS — ONBOARDING
+     Editorial × agency premium. Light, confident, not corporate.
+     ───────────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0B0B0D;
+    --ink-soft: #1A1A1F;
+    --ink-mute: #525257;
+    --ink-quiet: #8C8C93;
+    --line: rgba(11, 11, 13, 0.08);
+    --line-strong: rgba(11, 11, 13, 0.18);
+    --paper: #F6F4EE;
+    --paper-warm: #EFEAE0;
+    --card: #FFFFFF;
+    --accent: #E85D2A;         /* momentum orange */
+    --accent-ink: #B94518;
+    --accent-soft: rgba(232, 93, 42, 0.10);
+    --focus: rgba(232, 93, 42, 0.35);
+    --ok: #0E7A4B;
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --mono: 'IBM Plex Mono', ui-monospace, monospace;
+    --radius: 14px;
+    --shadow-lift: 0 1px 2px rgba(11,11,13,.04), 0 20px 60px -20px rgba(11,11,13,.18);
+  }
+
+  html, body { height: 100%; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  body { display: flex; flex-direction: column; overflow: hidden; }
+
+  /* ── Top bar ── */
+  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 32px; border-bottom: 1px solid var(--line); background: rgba(246, 244, 238, 0.82); backdrop-filter: blur(12px); z-index: 10; }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-logo { height: 28px; width: auto; display: block; }
+  .brand-logo.fallback { display: none; }
+  .brand-mark { font-family: var(--serif); font-size: 24px; font-style: italic; letter-spacing: -0.01em; }
+  .brand-sub { font-family: var(--mono); font-size: 11px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.12em; padding-left: 12px; border-left: 1px solid var(--line); }
+  .splash-logo { height: 40px; width: auto; margin-bottom: 36px; display: block; }
+  .step-pill { font-family: var(--mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.1em; text-transform: uppercase; }
+
+  /* ── Progress ── */
+  .progress { height: 2px; background: var(--line); position: relative; overflow: hidden; }
+  .progress-bar { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); transition: width 420ms cubic-bezier(.2,.8,.2,1); width: 0%; }
+
+  /* ── Stage ── */
+  .stage { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; }
+  .card-wrap { min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 56px 24px 96px; }
+  .card { width: 100%; max-width: 720px; opacity: 1; transform: translateY(0); transition: opacity 320ms ease, transform 320ms cubic-bezier(.2,.8,.2,1); }
+  .card.enter { opacity: 0; transform: translateY(14px); }
+
+  .section-tag { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 22px; }
+  .section-tag::before { content: ""; width: 24px; height: 1px; background: var(--ink-mute); display: inline-block; }
+
+  .q-number { font-family: var(--mono); font-size: 12px; color: var(--accent-ink); letter-spacing: 0.08em; margin-bottom: 10px; }
+  .q-title { font-family: var(--serif); font-size: clamp(30px, 4vw, 44px); line-height: 1.15; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 14px; font-weight: 400; }
+  .q-title em { font-style: italic; color: var(--accent-ink); }
+  .q-help { font-size: 15px; color: var(--ink-mute); line-height: 1.55; max-width: 580px; margin-bottom: 34px; }
+  .q-help strong { color: var(--ink-soft); font-weight: 600; }
+
+  /* ── Inputs ── */
+  .field { width: 100%; }
+  input[type=text], input[type=email], input[type=url], textarea, select {
+    width: 100%; font-family: var(--sans); font-size: 20px; color: var(--ink); background: transparent;
+    border: none; border-bottom: 1.5px solid var(--line-strong); padding: 14px 2px; outline: none; transition: border-color 180ms ease;
+  }
+  input::placeholder, textarea::placeholder { color: var(--ink-quiet); font-weight: 400; }
+  input:focus, textarea:focus, select:focus { border-bottom-color: var(--accent); }
+  textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
+  select { appearance: none; padding-right: 28px; background-image: linear-gradient(45deg, transparent 50%, var(--ink-mute) 50%), linear-gradient(135deg, var(--ink-mute) 50%, transparent 50%); background-position: calc(100% - 14px) 22px, calc(100% - 8px) 22px; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; cursor: pointer; }
+
+  /* Choices (radio / checkbox) as large touch-friendly rows */
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; cursor: pointer; transition: all 160ms ease; }
+  .choice:hover { border-color: var(--line-strong); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice-key { width: 28px; height: 28px; border: 1px solid var(--line-strong); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; color: var(--ink-mute); background: var(--paper-warm); flex-shrink: 0; }
+  .choice-label { font-size: 17px; color: var(--ink); line-height: 1.4; }
+  .choice.selected { border-color: var(--accent); background: var(--accent-soft); }
+  .choice.selected .choice-key { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  .file-drop { border: 1.5px dashed var(--line-strong); border-radius: 12px; padding: 26px; text-align: center; color: var(--ink-mute); cursor: pointer; transition: all 160ms ease; }
+  .file-drop:hover { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
+  .file-name { margin-top: 10px; font-family: var(--mono); font-size: 13px; color: var(--ok); }
+
+  /* ── Footer / actions ── */
+  .actions { margin-top: 36px; display: flex; align-items: center; gap: 14px; }
+  .btn { font-family: var(--sans); font-size: 15px; font-weight: 500; padding: 13px 22px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; transition: all 160ms ease; }
+  .btn-primary { background: var(--ink); color: #fff; display: inline-flex; align-items: center; gap: 10px; }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-ghost { background: transparent; color: var(--ink-mute); }
+  .btn-ghost:hover { color: var(--ink); }
+  .kbd { font-family: var(--mono); font-size: 11px; color: var(--ink-quiet); margin-left: 4px; padding: 2px 6px; border-radius: 4px; background: var(--paper-warm); border: 1px solid var(--line); }
+  .hint { font-size: 13px; color: var(--ink-quiet); margin-top: 14px; }
+
+  /* ── Welcome / thank-you ── */
+  .splash { text-align: left; max-width: 640px; }
+  .splash .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: 28px; }
+  .splash h1 { font-family: var(--serif); font-size: clamp(44px, 6vw, 72px); line-height: 1.02; letter-spacing: -0.02em; font-weight: 400; margin-bottom: 22px; }
+  .splash h1 em { font-style: italic; }
+  .splash p { font-size: 18px; color: var(--ink-mute); line-height: 1.6; margin-bottom: 14px; }
+  .meta { display: flex; gap: 28px; margin-top: 36px; font-family: var(--mono); font-size: 12px; color: var(--ink-mute); letter-spacing: 0.06em; text-transform: uppercase; }
+  .meta span strong { color: var(--ink); font-weight: 600; }
+
+  /* ── Security notice ── */
+  .notice { background: var(--paper-warm); border-left: 2px solid var(--accent); padding: 16px 18px; border-radius: 4px; margin-bottom: 26px; font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
+  .notice strong { color: var(--ink); }
+
+  /* ── Error ── */
+  .error { color: #B94518; font-size: 13px; margin-top: 10px; }
+
+  /* ── Small screens ── */
+  @media (max-width: 640px) {
+    .topbar { padding: 14px 20px; }
+    .card-wrap { padding: 36px 20px 72px; }
+    .q-title { font-size: 26px; }
+    .choice-label { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img src="/static/momentus-logo.jpg" alt="Momentus" class="brand-logo" onerror="this.style.display='none';document.getElementById('brandTextFallback').style.display='inline';" />
+    <span class="brand-mark" id="brandTextFallback" style="display:none">Momentus</span>
+    <span class="brand-sub">Kickoff Onboarding</span>
+  </div>
+  <div class="step-pill" id="stepPill">01</div>
+</div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+<div class="stage" id="stage">
+  <div class="card-wrap"><div class="card" id="card"></div></div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   FORM SPEC — single source of truth
+   ───────────────────────────────────────────────────────────── */
+const SECTIONS = [
+  { id: "s1", title: "Ki vagy és kivel dolgozunk együtt?" },
+  { id: "s2", title: "A fókusz, amire szerződtünk." },
+  { id: "s3", title: "Honnan fogjuk tudni, hogy nyertünk?" },
+  { id: "s4", title: "A technikai valóság." },
+  { id: "s5", title: "Hozzáférés — biztonságos csatornán." },
+  { id: "s6", title: "Amit szabad, és amit nem." },
+  { id: "s7", title: "Hogyan dolgozunk együtt." },
+  { id: "s8", title: "Ha nyerünk — megoszthatjuk?" },
+];
+
+const STEPS = [
+  { type: "welcome" },
+
+  // S1
+  { section: "s1", id: "company_name",   type: "text",       required: true,
+    q: "Kezdjük a <em>legelején</em>. Mi a cég neve?",
+    help: "Ez kerül minden belső dokumentumba és Slack-csatornába." },
+  { section: "s1", id: "contact_name",   type: "text",       required: true,
+    q: "Te ki vagy, és mi a pozíciód?",
+    help: "Név + szerepkör — tudnunk kell, ki a fő döntéshozó a te oldaladon.",
+    placeholder: "pl. Nagy Anna, Head of Marketing" },
+  { section: "s1", id: "contact_email",  type: "email",      required: true,
+    q: "Hova küldjük a riportokat és a meghívókat?",
+    help: "Elsődleges kapcsolattartó e-mail." },
+  { section: "s1", id: "daily_contact",  type: "choice",     required: true,
+    q: "Ki lesz a napi szintű kapcsolattartó a csapatunk felé?",
+    options: ["Én magam", "Másik kolléga", "Külsős partner / ügynökség"] },
+  { section: "s1", id: "daily_contact_info", type: "long",   required: false,
+    q: "Add meg az ő nevét, pozícióját és e-mail címét.",
+    help: "Egy jól meghatározott DRI = gyors iteráció.",
+    when: (a) => a.daily_contact && a.daily_contact !== "Én magam" },
+
+  // S2
+  { section: "s2", id: "company_desc",   type: "long",       required: true,
+    q: "Röviden: <em>mit csinál a cég, és kinek?</em>",
+    help: "Egyetlen tiszta bekezdés. Ne a weboldaltokról akarjuk kitalálni." },
+  { section: "s2", id: "priority_1",     type: "text",       required: true,
+    q: "A szerződés szerint 2 szakterületre fókuszálunk. Mi az <em>1. priorizált</em> szakterület?",
+    help: "A teljes audit és content stratégia e köré épül." },
+  { section: "s2", id: "priority_2",     type: "text",       required: true,
+    q: "És a <em>2. priorizált</em> szakterület?",
+    help: "A második, szerződésben rögzített fókusz." },
+  { section: "s2", id: "priority_reason", type: "long",      required: true,
+    q: "Miért pont ez a kettő? Mi a stratégiai ok?",
+    help: "Margin, új piac, kapacitás, szezonalitás — az üzleti kontextus számít, nem csak a keresési volumen." },
+  { section: "s2", id: "geo_markets",    type: "multi",      required: true,
+    q: "Mely földrajzi piac(ok)ra fókuszálunk?",
+    options: ["Magyarország", "DACH", "CEE régió", "EU", "Egyéb"] },
+
+  // S3
+  { section: "s3", id: "extra_kpis",     type: "long",       required: false,
+    q: "A fő KPI a <em>Top 3 AI-ajánlási láthatóság</em>. Van ezen felül belső KPI-d, ami számít?",
+    help: "Lead, forgalom, offer request, pipeline — amit a vezetőség felé vállaltál. Ezt tükrözi a belső reporting." },
+  { section: "s3", id: "sample_prompts", type: "long",       required: true,
+    q: "Adj meg 5–10 kérdést, amit egy ideális ügyfél beírna <em>ChatGPT / Perplexity / Google AI-ba</em>.",
+    help: "Ez a baseline AI-visibility teszt alapja. Soronként egyet.",
+    placeholder: "Melyik a legjobb ... Budapesten?\nHogyan válasszak ...\nMennyibe kerül egy ..." },
+  { section: "s3", id: "competitors",    type: "long",       required: true,
+    q: "Kik a <em>3–5 legfontosabb versenytársad</em> a 2 priorizált szakterületen?",
+    help: "Formátum: név + weboldal, soronként egy.",
+    placeholder: "Versenytárs A — versenytarsa.hu" },
+  { section: "s3", id: "overperformer",  type: "text",       required: false,
+    q: "Van olyan szereplő, aki szerinted „méltánytalanul" jobban teljesít AI találatokban, mint te?",
+    help: "Opcionális — sokszor itt derül ki egy niche GEO-trükkel előnyt szerző versenytárs." },
+
+  // S4
+  { section: "s4", id: "website_url",    type: "url",        required: true,
+    q: "Weboldal URL",
+    placeholder: "https://..." },
+  { section: "s4", id: "cms",            type: "select",     required: true,
+    q: "Milyen <em>CMS-en</em> fut a weboldal?",
+    help: "Ez dönti el, hogy a GEO content blockokat és a schema módosításokat mi magunk tudjuk-e végrehajtani.",
+    options: ["WordPress", "Webflow", "Shopify", "Drupal", "Headless (Next.js, Astro, stb.)", "Egyedi fejlesztésű", "Nem tudom", "Egyéb"] },
+  { section: "s4", id: "implementer",    type: "choice",     required: true,
+    q: "Ki fogja a javaslatainkat <em>a weboldalon implementálni</em>?",
+    help: "A szerződés szerint a gyors implementáció ügyfél-felelősség. Itt rögzítjük a realitást.",
+    options: [
+      "Belső fejlesztőnk / marketingesünk",
+      "Külső fejlesztő / ügynökség",
+      "A Momentusnak adunk hozzáférést a közvetlen implementációhoz",
+      "Még nincs eldöntve"
+    ] },
+  { section: "s4", id: "implementation_sla", type: "choice", required: true,
+    q: "Körülbelül milyen átfutással tudtok egy jóváhagyott változtatást <em>élesíteni</em>?",
+    help: "A Top 3 AI-láthatósági eredmény közvetlenül függ ettől.",
+    options: ["24 órán belül", "2–5 munkanap", "1–2 hét", "2 hétnél hosszabb", "Nem tudom megítélni"] },
+  { section: "s4", id: "tech_constraints", type: "long",     required: false,
+    q: "Van bármilyen <em>technikai korlát</em>, amit érdemes előre tudnunk?",
+    help: "Nem módosítható template, lassú deploy, CMS-ben korlátozott schema, stb." },
+
+  // S5
+  { section: "s5", id: "_access_notice", type: "notice",
+    q: "Hozzáférések — nem itt, hanem biztonságos csatornán.",
+    help: "<strong>Fontos:</strong> jelszavakat vagy tokeneket <strong>soha ne küldj be ezen az űrlapon</strong>. Itt csak azt rögzítjük, <strong>ki</strong> fogja biztosítani a hozzáféréseket. A kickoff után egy titkosított csatornán (1Password megosztott széf vagy Bitwarden Send link) kérjük el őket." },
+  { section: "s5", id: "ga4_owner",      type: "text",       required: true,
+    q: "Ki biztosítja a <em>Google Analytics 4</em> hozzáférést?",
+    help: "Név + e-mail. Viewer szintű meghívó megy nekünk.",
+    placeholder: "pl. Kovács Péter, peter@..." },
+  { section: "s5", id: "gsc_owner",      type: "text",       required: true,
+    q: "Ki biztosítja a <em>Google Search Console</em> hozzáférést?",
+    help: "Név + e-mail.",
+    placeholder: "pl. Kovács Péter, peter@..." },
+  { section: "s5", id: "other_tools",    type: "multi",      required: false,
+    q: "Milyen további analitikai / marketing eszközt használtok?",
+    options: ["Ahrefs", "SEMrush", "Similarweb", "HubSpot", "Hotjar", "Mixpanel", "Google Tag Manager", "Meta Ads", "Google Ads", "Egyéb", "Nincs ilyen"] },
+  { section: "s5", id: "secure_channel", type: "choice",     required: true,
+    q: "Milyen csatornán tudod <em>biztonságosan átadni</em> a hozzáféréseket?",
+    options: [
+      "1Password megosztott széf",
+      "Bitwarden Send (időkorlátos link)",
+      "Saját SSO / admin meghívón keresztül (nincs jelszócsere)",
+      "Nincs preferenciám — javasoljatok ti"
+    ] },
+
+  // S6
+  { section: "s6", id: "brand_guidelines_link", type: "long", required: false,
+    q: "Van <em>brand guideline, tone-of-voice</em> vagy szerkesztési kézikönyv, amit követnünk kell?",
+    help: "Illessz be linkeket (Notion, Google Drive, Figma). Fájlt a következő lépésnél tölthetsz fel." },
+  { section: "s6", id: "brand_guidelines_file", type: "file", required: false,
+    q: "Ha PDF / DOCX, töltsd fel.",
+    help: "Opcionális. Ha linkkel megadtad, átugorhatod." },
+  { section: "s6", id: "forbidden_topics", type: "long",     required: false,
+    q: "Vannak <em>tiltott témák, kifejezések vagy versenytársak</em>, akiket nem szabad említeni?",
+    help: "Sem közvetve, sem közvetlenül. Elkerüljük a jogi / compliance problémákat a publikus tartalomban." },
+  { section: "s6", id: "regulated_market", type: "choice",   required: true,
+    q: "A szakterületetek <em>szabályozott piacon</em> mozog? (pl. egészségügy, pénzügy, jog)",
+    options: ["Igen — szigorú compliance", "Részben", "Nem"] },
+  { section: "s6", id: "compliance_approver", type: "long",  required: false,
+    q: "Ki a jogi/compliance jóváhagyó, és mi az átfutási idő?",
+    when: (a) => a.regulated_market && a.regulated_market !== "Nem" },
+
+  // S7
+  { section: "s7", id: "comm_channel",   type: "choice",     required: true,
+    q: "Preferált fő <em>kommunikációs csatorna</em> a projekt alatt?",
+    help: "A Slack Connect a default a Momentusnál — gyors visszacsatolás, minden dokumentálva.",
+    options: ["Közös Slack Connect csatorna (ajánlott)", "E-mail", "Microsoft Teams", "Egyéb"] },
+  { section: "s7", id: "cadence",        type: "choice",     required: true,
+    q: "Heti státusz ritmus — mi a preferenciád?",
+    options: [
+      "Heti 30 perces videós státusz + írásos report",
+      "Csak írásos heti report",
+      "Kétheti videós + havi nagy review"
+    ] },
+  { section: "s7", id: "approver",       type: "text",       required: true,
+    q: "Ki az az <em>egy személy</em>, aki a javaslatokat jóváhagyja a ti oldalatokon?",
+    help: "Egy jóváhagyó = gyors iteráció. Több jóváhagyó = projekt-lassulás.",
+    placeholder: "Név + szerepkör" },
+  { section: "s7", id: "low_capacity",   type: "long",       required: false,
+    q: "Van olyan <em>időszak a következő 6 hónapban</em>, amikor szűkebb kapacitással dolgoztok?",
+    help: "Szabadság, termékindítás, vásár — a roadmap-et ehhez igazítjuk." },
+
+  // S8
+  { section: "s8", id: "reference_consent", type: "choice",  required: true,
+    q: "A szerződés alapján a pozitív eredményeket előzetes jóváhagyással esettanulmányként használhatjuk. Mi a <em>kiinduló álláspontod</em>?",
+    options: [
+      "Igen, nyitott vagyok rá — konkrét jóváhagyás mindig az adott tartalomra",
+      "Csak anonimizálva (iparág + számok, cégnév nélkül)",
+      "Egyelőre nem szeretném"
+    ] },
+  { section: "s8", id: "pr_approver",    type: "text",       required: false,
+    q: "Ki a <em>marketing/PR oldali jóváhagyó</em> egy esetleges case studyhoz?",
+    when: (a) => a.reference_consent && !a.reference_consent.startsWith("Egyelőre") },
+  { section: "s8", id: "final_notes",    type: "long",       required: false,
+    q: "Bármi, amit még tudnunk kellene, de nem kérdeztünk meg?",
+    help: "A legjobb insightok sokszor itt jönnek. Hagyunk rá teret." },
+
+  { type: "submit" },
+  { type: "thanks" },
+];
+
+/* ─────────────────────────────────────────────────────────────
+   STATE + RENDER
+   ───────────────────────────────────────────────────────────── */
+const state = { idx: 0, answers: {} };
+const card = document.getElementById("card");
+const progressBar = document.getElementById("progressBar");
+const stepPill = document.getElementById("stepPill");
+
+function visibleSteps() {
+  return STEPS.filter(s => !s.when || s.when(state.answers));
+}
+function currentStep() {
+  return visibleSteps()[state.idx];
+}
+function totalRealSteps() {
+  return visibleSteps().filter(s => s.id && s.type !== "notice").length;
+}
+function answeredCount() {
+  return Object.keys(state.answers).length;
+}
+
+function render() {
+  const steps = visibleSteps();
+  if (state.idx < 0) state.idx = 0;
+  if (state.idx >= steps.length) state.idx = steps.length - 1;
+  const step = steps[state.idx];
+
+  const realIndex = steps.slice(0, state.idx + 1).filter(s => s.id && s.type !== "notice").length;
+  const total = totalRealSteps();
+  progressBar.style.width = Math.round((realIndex / Math.max(total, 1)) * 100) + "%";
+  stepPill.textContent = step.type === "welcome" || step.type === "thanks"
+    ? (step.type === "thanks" ? "✓" : "00")
+    : String(realIndex).padStart(2, "0") + " / " + String(total).padStart(2, "0");
+
+  card.innerHTML = renderStep(step);
+  card.classList.add("enter");
+  requestAnimationFrame(() => requestAnimationFrame(() => card.classList.remove("enter")));
+  wire(step);
+  const focusEl = card.querySelector("input, textarea, select, .choice");
+  if (focusEl && focusEl.focus) setTimeout(() => focusEl.focus(), 60);
+}
+
+function sectionOf(step) {
+  return SECTIONS.find(s => s.id === step.section);
+}
+
+function renderStep(step) {
+  if (step.type === "welcome") return `
+    <div class="splash">
+      <img src="/static/momentus-logo.jpg" alt="Momentus" class="splash-logo" onerror="this.style.display='none';" />
+      <div class="kicker">GEO / AEO / AI visibility</div>
+      <h1>Üdv a Momentusnál. <em>Kezdjük el.</em></h1>
+      <p>A következő néhány perc arra szolgál, hogy a csapatunk pontosan megértse a márkádat, a céljaidat és azt a két szakterületet, amire a szerződésünk alapján a következő hónapokban fókuszálunk.</p>
+      <p>Minden válaszod közvetlenül beépül a stratégiai briefbe, amit a kickoff előtt összeállítunk.</p>
+      <div class="actions">
+        <button class="btn btn-primary" data-next>Kezdjük <span>→</span></button>
+        <span class="hint">Enter <span class="kbd">↵</span></span>
+      </div>
+      <div class="meta">
+        <span><strong>~9 perc</strong> kitöltés</span>
+        <span><strong>33</strong> kérdés</span>
+        <span>Mentés <strong>automatikus</strong></span>
+      </div>
+    </div>`;
+
+  if (step.type === "submit") return `
+    <div class="splash">
+      <div class="kicker">Utolsó lépés</div>
+      <h1>Készen állsz, <em>beküldjük?</em></h1>
+      <p>Ellenőriztük — minden szükséges válasz megvan. Kattintásra a Momentus csapata 2 munkanapon belül visszajelez.</p>
+      <div class="actions">
+        <button class="btn btn-primary" id="submitBtn">Beküldés <span>→</span></button>
+        <button class="btn btn-ghost" data-prev>Vissza</button>
+      </div>
+      <div class="error" id="submitError" style="display:none"></div>
+    </div>`;
+
+  if (step.type === "thanks") return `
+    <div class="splash">
+      <div class="kicker">Köszönjük</div>
+      <h1>Innen <em>mi vesszük át.</em></h1>
+      <p>A válaszaid most egyenesen a Momentus stratégiai csapatához kerülnek. A következő 2 munkanapban összeállítjuk a belső kickoff briefet, küldünk naptármeghívót a stratégiai indító workshopra, és egy biztonságos linket a hozzáférések átadásához.</p>
+      <p>Addig is — jó kezekben vagy.</p>
+      <div class="meta"><span>— A <strong>Momentus</strong> csapat</span></div>
+    </div>`;
+
+  const sec = sectionOf(step);
+  const secTag = sec ? `<div class="section-tag">${sec.title}</div>` : "";
+  const num = `<div class="q-number">${String(visibleSteps().slice(0, state.idx+1).filter(s => s.id && s.type !== "notice").length).padStart(2,"0")}</div>`;
+  const help = step.help ? `<div class="q-help">${step.help}</div>` : "";
+
+  if (step.type === "notice") return `
+    ${secTag}
+    <h2 class="q-title">${step.q}</h2>
+    <div class="notice">${step.help}</div>
+    <div class="actions">
+      <button class="btn btn-primary" data-next>Értettem <span>→</span></button>
+      <button class="btn btn-ghost" data-prev>Vissza</button>
+    </div>`;
+
+  const v = state.answers[step.id] ?? (step.type === "multi" ? [] : "");
+
+  let field = "";
+  if (step.type === "text" || step.type === "email" || step.type === "url") {
+    field = `<input type="${step.type}" id="f" value="${escapeAttr(v)}" placeholder="${escapeAttr(step.placeholder || "Kezdj el gépelni…")}" autocomplete="off" />`;
+  } else if (step.type === "long") {
+    field = `<textarea id="f" placeholder="${escapeAttr(step.placeholder || "Kezdj el gépelni…")}">${escapeHtml(v)}</textarea>`;
+  } else if (step.type === "select") {
+    field = `<select id="f"><option value="" disabled ${v ? "" : "selected"}>Válassz…</option>${
+      step.options.map(o => `<option value="${escapeAttr(o)}" ${v===o?"selected":""}>${escapeHtml(o)}</option>`).join("")
+    }</select>`;
+  } else if (step.type === "choice") {
+    field = `<div class="choices" id="f">${
+      step.options.map((o, i) => `
+        <label class="choice ${v===o?"selected":""}" data-val="${escapeAttr(o)}">
+          <span class="choice-key">${String.fromCharCode(65+i)}</span>
+          <span class="choice-label">${escapeHtml(o)}</span>
+        </label>`).join("")
+    }</div>`;
+  } else if (step.type === "multi") {
+    const arr = Array.isArray(v) ? v : [];
+    field = `<div class="choices" id="f">${
+      step.options.map((o, i) => `
+        <label class="choice ${arr.includes(o)?"selected":""}" data-val="${escapeAttr(o)}">
+          <span class="choice-key">${arr.includes(o) ? "✓" : String.fromCharCode(65+i)}</span>
+          <span class="choice-label">${escapeHtml(o)}</span>
+        </label>`).join("")
+    }</div>`;
+  } else if (step.type === "file") {
+    field = `
+      <label class="file-drop" for="fileInput">
+        <div>Kattints vagy húzd ide a fájlt (PDF / DOCX)</div>
+        <div class="file-name" id="fileName">${v && v.name ? escapeHtml(v.name) : ""}</div>
+      </label>
+      <input type="file" id="fileInput" accept=".pdf,.doc,.docx" style="display:none" />`;
+  }
+
+  return `
+    ${secTag}
+    ${num}
+    <h2 class="q-title">${step.q}</h2>
+    ${help}
+    <div class="field">${field}</div>
+    <div class="actions">
+      <button class="btn btn-primary" id="nextBtn">OK <span>→</span></button>
+      <button class="btn btn-ghost" data-prev>Vissza</button>
+      <span class="hint">nyomd meg az Enter-t <span class="kbd">↵</span></span>
+    </div>
+    <div class="error" id="err" style="display:none"></div>
+  `;
+}
+
+function wire(step) {
+  card.querySelectorAll("[data-next]").forEach(b => b.onclick = () => advance());
+  card.querySelectorAll("[data-prev]").forEach(b => b.onclick = () => { state.idx--; render(); });
+
+  if (step.type === "welcome" || step.type === "notice") return;
+
+  if (step.type === "submit") {
+    document.getElementById("submitBtn").onclick = submit;
+    return;
+  }
+  if (step.type === "thanks") return;
+
+  const nextBtn = document.getElementById("nextBtn");
+  if (step.type === "choice") {
+    card.querySelectorAll(".choice").forEach(el => {
+      el.onclick = () => {
+        state.answers[step.id] = el.dataset.val;
+        advance();
+      };
+    });
+  } else if (step.type === "multi") {
+    card.querySelectorAll(".choice").forEach(el => {
+      el.onclick = () => {
+        const cur = Array.isArray(state.answers[step.id]) ? [...state.answers[step.id]] : [];
+        const v = el.dataset.val;
+        const i = cur.indexOf(v);
+        if (i >= 0) cur.splice(i, 1); else cur.push(v);
+        state.answers[step.id] = cur;
+        render();
+      };
+    });
+    nextBtn.onclick = () => advance();
+  } else if (step.type === "file") {
+    const input = document.getElementById("fileInput");
+    const drop = card.querySelector(".file-drop");
+    drop.addEventListener("dragover", e => { e.preventDefault(); drop.style.borderColor = "var(--accent)"; });
+    drop.addEventListener("dragleave", () => { drop.style.borderColor = ""; });
+    drop.addEventListener("drop", e => { e.preventDefault(); if (e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]); });
+    input.onchange = () => input.files[0] && onFile(input.files[0]);
+    function onFile(f) {
+      state.answers[step.id] = { name: f.name, size: f.size };
+      document.getElementById("fileName").textContent = f.name;
+    }
+    nextBtn.onclick = () => advance();
+  } else {
+    const f = document.getElementById("f");
+    f.oninput = () => { state.answers[step.id] = f.value.trim(); };
+    if (step.type === "select") f.onchange = () => { state.answers[step.id] = f.value; advance(); };
+    nextBtn.onclick = () => advance();
+  }
+}
+
+function validate(step) {
+  if (!step.required) return true;
+  const v = state.answers[step.id];
+  if (step.type === "multi") return Array.isArray(v) && v.length > 0;
+  if (step.type === "email") return typeof v === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  if (step.type === "url") return typeof v === "string" && /^https?:\/\/.+/i.test(v);
+  return typeof v === "string" ? v.trim().length > 0 : !!v;
+}
+
+function advance() {
+  const step = currentStep();
+  if (step && step.id && !validate(step)) {
+    const e = document.getElementById("err");
+    if (e) { e.textContent = "Ez a mező kötelező — folytassuk ezzel."; e.style.display = "block"; }
+    return;
+  }
+  state.idx++;
+  render();
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && !e.shiftKey) {
+    const step = currentStep();
+    if (!step) return;
+    if (["long"].includes(step.type)) return; // allow newlines in long text
+    e.preventDefault();
+    if (step.type === "submit") return submit();
+    advance();
+  }
+});
+
+/* ─────────────────────────────────────────────────────────────
+   SUBMIT
+   ───────────────────────────────────────────────────────────── */
+async function submit() {
+  const btn = document.getElementById("submitBtn");
+  const err = document.getElementById("submitError");
+  btn.disabled = true; btn.innerHTML = "Beküldés…";
+  // File payloads are metadata only — full upload handled in secure channel post-kickoff.
+  const payload = { answers: state.answers };
+  try {
+    const r = await fetch("/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const j = await r.json();
+    if (!r.ok || !j.success) throw new Error(j.error || "Ismeretlen hiba");
+    state.idx++; render();
+  } catch (e) {
+    btn.disabled = false; btn.innerHTML = "Beküldés <span>→</span>";
+    err.textContent = "Hiba: " + e.message + ". Próbáld újra, vagy írj a hello@momentus.hu címre.";
+    err.style.display = "block";
+  }
+}
+
+/* utilities */
+function escapeHtml(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" })[c]); }
+function escapeAttr(s){ return escapeHtml(s).replace(/\n/g, " "); }
+
+render();
+</script>
+</body>
+</html>

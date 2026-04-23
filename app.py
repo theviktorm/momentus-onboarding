@@ -9,6 +9,7 @@ import json
 import logging
 import os
 import smtplib
+import socket
 import sqlite3
 import ssl
 import uuid
@@ -152,20 +153,30 @@ def send_email_sync(row_id: str, answers: Dict[str, Any]) -> bool:
     msg.set_content(text)
     msg.add_alternative(html, subtype="html")
 
+    # Resolve to IPv4 explicitly — Railway containers often lack IPv6 outbound,
+    # and Python's default getaddrinfo prefers AAAA → ENETUNREACH.
+    try:
+        infos = socket.getaddrinfo(SMTP_HOST, SMTP_PORT, socket.AF_INET, socket.SOCK_STREAM)
+        ipv4_host = infos[0][4][0]
+    except Exception as e:
+        log.error("DNS A-record lookup failed for %s: %s: %s", SMTP_HOST, type(e).__name__, e)
+        ipv4_host = SMTP_HOST
+
     try:
         ctx = ssl.create_default_context()
         if SMTP_PORT == 465:
-            with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, context=ctx, timeout=15) as s:
+            with smtplib.SMTP_SSL(ipv4_host, SMTP_PORT, context=ctx, timeout=20) as s:
+                s.ehlo(SMTP_HOST)
                 s.login(SMTP_USER, SMTP_PASS)
                 s.send_message(msg)
         else:
-            with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=15) as s:
-                s.ehlo()
+            with smtplib.SMTP(ipv4_host, SMTP_PORT, timeout=20) as s:
+                s.ehlo(SMTP_HOST)
                 s.starttls(context=ctx)
-                s.ehlo()
+                s.ehlo(SMTP_HOST)
                 s.login(SMTP_USER, SMTP_PASS)
                 s.send_message(msg)
-        log.info("Email sent for %s → %s", row_id, SMTP_TO)
+        log.info("Email sent for %s → %s (via %s)", row_id, SMTP_TO, ipv4_host)
         return True
     except Exception as e:
         log.error("Email failed for %s: %s: %s", row_id, type(e).__name__, e)

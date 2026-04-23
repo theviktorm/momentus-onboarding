@@ -146,6 +146,8 @@ def send_via_resend(subject: str, text: str, html: str, reply_to: str, row_id: s
         headers={
             "Authorization": f"Bearer {RESEND_API_KEY}",
             "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": "momentus-onboarding/1.0 (+https://momentus.hu)",
         },
         method="POST",
     )

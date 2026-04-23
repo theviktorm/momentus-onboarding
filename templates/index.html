@@ -6,125 +6,288 @@
 <title>Momentus — Kickoff Onboarding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <style>
   /* ─────────────────────────────────────────────────────────────
-     MOMENTUS — ONBOARDING
-     Editorial × agency premium. Light, confident, not corporate.
+     MOMENTUS — CLIENT ONBOARDING
+     Quiet luxury. Navy × muted gold. Minimal, editorial.
      ───────────────────────────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --ink: #0B0B0D;
-    --ink-soft: #1A1A1F;
-    --ink-mute: #525257;
-    --ink-quiet: #8C8C93;
-    --line: rgba(11, 11, 13, 0.08);
-    --line-strong: rgba(11, 11, 13, 0.18);
-    --paper: #F6F4EE;
-    --paper-warm: #EFEAE0;
+    --bg: #F7F5F0;
+    --bg-deep: #EEEAE1;
+    --ink: #0B1220;
+    --ink-soft: #1A2338;
+    --ink-mute: #5C6378;
+    --ink-quiet: #9097A6;
+    --line: rgba(11, 18, 32, 0.08);
+    --line-strong: rgba(11, 18, 32, 0.18);
     --card: #FFFFFF;
-    --accent: #E85D2A;         /* momentum orange */
-    --accent-ink: #B94518;
-    --accent-soft: rgba(232, 93, 42, 0.10);
-    --focus: rgba(232, 93, 42, 0.35);
-    --ok: #0E7A4B;
-    --serif: 'Instrument Serif', Georgia, serif;
-    --sans: 'Instrument Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    --mono: 'IBM Plex Mono', ui-monospace, monospace;
-    --radius: 14px;
-    --shadow-lift: 0 1px 2px rgba(11,11,13,.04), 0 20px 60px -20px rgba(11,11,13,.18);
+    --gold: #A68A5B;
+    --gold-deep: #8B7447;
+    --gold-soft: rgba(166, 138, 91, 0.09);
+    --gold-line: rgba(166, 138, 91, 0.35);
+    --navy: #0F1C2E;
+    --navy-soft: rgba(15, 28, 46, 0.06);
+    --focus: rgba(166, 138, 91, 0.4);
+    --ok: #2D6A4F;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --serif: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --shadow-soft: 0 1px 2px rgba(11,18,32,.04), 0 14px 40px -16px rgba(11,18,32,.12);
+    --shadow-lift: 0 1px 2px rgba(11,18,32,.05), 0 24px 60px -20px rgba(11,18,32,.18);
   }
 
-  html, body { height: 100%; background: var(--paper); color: var(--ink); font-family: var(--sans); -webkit-font-smoothing: antialiased; }
+  html, body {
+    height: 100%; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-weight: 400; font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
   body { display: flex; flex-direction: column; overflow: hidden; }
 
+  ::selection { background: var(--gold-soft); color: var(--navy); }
+
   /* ── Top bar ── */
-  .topbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 32px; border-bottom: 1px solid var(--line); background: rgba(246, 244, 238, 0.82); backdrop-filter: blur(12px); z-index: 10; }
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 36px; background: rgba(247, 245, 240, 0.85);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line); z-index: 10;
+  }
   .brand { display: flex; align-items: center; gap: 14px; }
-  .brand-logo { height: 28px; width: auto; display: block; }
-  .brand-logo.fallback { display: none; }
-  .brand-mark { font-family: var(--serif); font-size: 24px; font-style: italic; letter-spacing: -0.01em; }
-  .brand-sub { font-family: var(--mono); font-size: 11px; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 0.12em; padding-left: 12px; border-left: 1px solid var(--line); }
-  .splash-logo { height: 40px; width: auto; margin-bottom: 36px; display: block; }
-  .step-pill { font-family: var(--mono); font-size: 11px; color: var(--ink-mute); letter-spacing: 0.1em; text-transform: uppercase; }
+  .brand-logo { height: 26px; width: auto; display: block; }
+  .brand-mark { font-family: var(--sans); font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+  .brand-sub {
+    font-family: var(--mono); font-size: 10.5px; color: var(--ink-mute);
+    text-transform: uppercase; letter-spacing: 0.18em;
+    padding-left: 14px; border-left: 1px solid var(--line);
+  }
+  .step-pill {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-mute);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px;
+    background: rgba(255,255,255,0.5);
+  }
 
   /* ── Progress ── */
   .progress { height: 2px; background: var(--line); position: relative; overflow: hidden; }
-  .progress-bar { position: absolute; left: 0; top: 0; height: 100%; background: var(--accent); transition: width 420ms cubic-bezier(.2,.8,.2,1); width: 0%; }
+  .progress-bar {
+    position: absolute; left: 0; top: 0; height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-deep) 100%);
+    transition: width 520ms cubic-bezier(.2,.8,.2,1);
+  }
+  .progress-bar::after {
+    content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 60px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
+    animation: shimmer 2.4s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-60px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(0); opacity: 0; }
+  }
 
   /* ── Stage ── */
-  .stage { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; }
-  .card-wrap { min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 56px 24px 96px; }
-  .card { width: 100%; max-width: 720px; opacity: 1; transform: translateY(0); transition: opacity 320ms ease, transform 320ms cubic-bezier(.2,.8,.2,1); }
-  .card.enter { opacity: 0; transform: translateY(14px); }
+  .stage { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; position: relative; }
+  .card-wrap { min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 64px 28px 100px; }
+  .card {
+    width: 100%; max-width: 720px;
+    opacity: 1; transform: translateY(0);
+    transition: opacity 340ms cubic-bezier(.2,.8,.2,1), transform 340ms cubic-bezier(.2,.8,.2,1);
+  }
+  .card.enter { opacity: 0; transform: translateY(16px); }
+  .card.exit { opacity: 0; transform: translateY(-10px); }
 
-  .section-tag { display: inline-flex; align-items: center; gap: 10px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 22px; }
-  .section-tag::before { content: ""; width: 24px; height: 1px; background: var(--ink-mute); display: inline-block; }
+  /* ── Section chapter overlay ── */
+  .chapter {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    pointer-events: none; opacity: 0; z-index: 5;
+    background: rgba(247, 245, 240, 0.86); backdrop-filter: blur(6px);
+    transition: opacity 360ms ease;
+  }
+  .chapter.on { opacity: 1; }
+  .chapter-body { text-align: center; transform: translateY(8px); opacity: 0; transition: all 520ms cubic-bezier(.2,.8,.2,1); }
+  .chapter.on .chapter-body { transform: translateY(0); opacity: 1; }
+  .chapter-kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold-deep); margin-bottom: 18px;
+  }
+  .chapter-title {
+    font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.08; letter-spacing: -0.02em; color: var(--navy); max-width: 640px;
+  }
+  .chapter-emoji { font-size: 28px; display: block; margin-bottom: 22px; }
 
-  .q-number { font-family: var(--mono); font-size: 12px; color: var(--accent-ink); letter-spacing: 0.08em; margin-bottom: 10px; }
-  .q-title { font-family: var(--serif); font-size: clamp(30px, 4vw, 44px); line-height: 1.15; letter-spacing: -0.015em; color: var(--ink); margin-bottom: 14px; font-weight: 400; }
-  .q-title em { font-style: italic; color: var(--accent-ink); }
-  .q-help { font-size: 15px; color: var(--ink-mute); line-height: 1.55; max-width: 580px; margin-bottom: 34px; }
+  /* ── Section tag ── */
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-mute); margin-bottom: 22px;
+  }
+  .section-tag::before { content: ""; width: 22px; height: 1px; background: var(--gold); display: inline-block; }
+  .section-emoji { font-size: 14px; opacity: 0.9; }
+
+  /* ── Question ── */
+  .q-number { font-family: var(--mono); font-size: 11px; color: var(--gold-deep); letter-spacing: 0.1em; margin-bottom: 14px; }
+  .q-title {
+    font-family: var(--sans); font-weight: 500; font-size: clamp(28px, 3.6vw, 40px);
+    line-height: 1.18; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 14px;
+  }
+  .q-title em {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    color: var(--gold-deep); letter-spacing: -0.01em;
+  }
+  .q-help { font-size: 15px; color: var(--ink-mute); line-height: 1.6; max-width: 580px; margin-bottom: 36px; font-weight: 400; }
   .q-help strong { color: var(--ink-soft); font-weight: 600; }
 
   /* ── Inputs ── */
-  .field { width: 100%; }
+  .field { width: 100%; position: relative; }
   input[type=text], input[type=email], input[type=url], textarea, select {
-    width: 100%; font-family: var(--sans); font-size: 20px; color: var(--ink); background: transparent;
-    border: none; border-bottom: 1.5px solid var(--line-strong); padding: 14px 2px; outline: none; transition: border-color 180ms ease;
+    width: 100%; font-family: var(--sans); font-size: 19px; font-weight: 400;
+    color: var(--ink); background: transparent;
+    border: none; border-bottom: 1px solid var(--line-strong); padding: 14px 2px; outline: none;
+    transition: border-color 220ms ease;
   }
-  input::placeholder, textarea::placeholder { color: var(--ink-quiet); font-weight: 400; }
-  input:focus, textarea:focus, select:focus { border-bottom-color: var(--accent); }
-  textarea { min-height: 110px; resize: vertical; line-height: 1.5; }
-  select { appearance: none; padding-right: 28px; background-image: linear-gradient(45deg, transparent 50%, var(--ink-mute) 50%), linear-gradient(135deg, var(--ink-mute) 50%, transparent 50%); background-position: calc(100% - 14px) 22px, calc(100% - 8px) 22px; background-size: 6px 6px, 6px 6px; background-repeat: no-repeat; cursor: pointer; }
+  input::placeholder, textarea::placeholder { color: var(--ink-quiet); font-weight: 300; }
+  input:focus, textarea:focus, select:focus { border-bottom-color: var(--gold); }
 
-  /* Choices (radio / checkbox) as large touch-friendly rows */
+  /* Animated gold underline on focus */
+  .field::after {
+    content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+    background: var(--gold); transition: width 420ms cubic-bezier(.2,.8,.2,1);
+  }
+  .field.focused::after { width: 100%; }
+  textarea { min-height: 110px; resize: vertical; line-height: 1.55; }
+  select {
+    appearance: none; padding-right: 28px; cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink-mute) 50%), linear-gradient(135deg, var(--ink-mute) 50%, transparent 50%);
+    background-position: calc(100% - 14px) 22px, calc(100% - 8px) 22px;
+    background-size: 6px 6px, 6px 6px; background-repeat: no-repeat;
+  }
+
+  /* ── Choices ── */
   .choices { display: flex; flex-direction: column; gap: 10px; }
-  .choice { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: var(--card); border: 1px solid var(--line); border-radius: 12px; cursor: pointer; transition: all 160ms ease; }
-  .choice:hover { border-color: var(--line-strong); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
+  .choice {
+    display: flex; align-items: center; gap: 16px; padding: 18px 20px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    cursor: pointer; transition: all 220ms cubic-bezier(.2,.8,.2,1);
+    position: relative;
+  }
+  .choice:hover {
+    border-color: var(--gold-line); transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+  }
   .choice input { position: absolute; opacity: 0; pointer-events: none; }
-  .choice-key { width: 28px; height: 28px; border: 1px solid var(--line-strong); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 12px; color: var(--ink-mute); background: var(--paper-warm); flex-shrink: 0; }
-  .choice-label { font-size: 17px; color: var(--ink); line-height: 1.4; }
-  .choice.selected { border-color: var(--accent); background: var(--accent-soft); }
-  .choice.selected .choice-key { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .choice-key {
+    width: 30px; height: 30px; border: 1px solid var(--line-strong); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 12px; color: var(--ink-mute);
+    background: var(--bg-deep); flex-shrink: 0;
+    transition: all 220ms ease;
+  }
+  .choice-label { font-size: 16px; color: var(--ink); line-height: 1.4; font-weight: 400; }
+  .choice.selected {
+    border-color: var(--gold); background: var(--gold-soft);
+    box-shadow: 0 0 0 4px rgba(166, 138, 91, 0.06);
+  }
+  .choice.selected .choice-key { background: var(--gold); color: #fff; border-color: var(--gold); }
 
-  .file-drop { border: 1.5px dashed var(--line-strong); border-radius: 12px; padding: 26px; text-align: center; color: var(--ink-mute); cursor: pointer; transition: all 160ms ease; }
-  .file-drop:hover { border-color: var(--accent); color: var(--accent-ink); background: var(--accent-soft); }
-  .file-name { margin-top: 10px; font-family: var(--mono); font-size: 13px; color: var(--ok); }
+  .file-drop {
+    border: 1.5px dashed var(--line-strong); border-radius: 12px; padding: 30px;
+    text-align: center; color: var(--ink-mute); cursor: pointer;
+    transition: all 220ms ease;
+  }
+  .file-drop:hover { border-color: var(--gold); color: var(--gold-deep); background: var(--gold-soft); }
+  .file-name { margin-top: 12px; font-family: var(--mono); font-size: 13px; color: var(--ok); }
 
-  /* ── Footer / actions ── */
-  .actions { margin-top: 36px; display: flex; align-items: center; gap: 14px; }
-  .btn { font-family: var(--sans); font-size: 15px; font-weight: 500; padding: 13px 22px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; transition: all 160ms ease; }
-  .btn-primary { background: var(--ink); color: #fff; display: inline-flex; align-items: center; gap: 10px; }
-  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
-  .btn-primary:disabled { opacity: 0.35; cursor: not-allowed; transform: none; box-shadow: none; }
+  /* ── Buttons ── */
+  .actions { margin-top: 38px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--sans); font-size: 14.5px; font-weight: 500;
+    padding: 14px 22px; border-radius: 999px; border: 1px solid transparent;
+    cursor: pointer; transition: all 220ms cubic-bezier(.2,.8,.2,1);
+    letter-spacing: -0.005em;
+  }
+  .btn-primary {
+    background: var(--navy); color: #fff; display: inline-flex; align-items: center; gap: 10px;
+    box-shadow: 0 1px 2px rgba(11,18,32,.08), 0 10px 24px -10px rgba(11,18,32,.25);
+  }
+  .btn-primary:hover {
+    background: var(--ink); transform: translateY(-1px);
+    box-shadow: 0 1px 2px rgba(11,18,32,.1), 0 18px 40px -14px rgba(11,18,32,.35);
+  }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-primary .arrow { transition: transform 220ms ease; display: inline-block; }
+  .btn-primary:hover .arrow { transform: translateX(3px); }
   .btn-ghost { background: transparent; color: var(--ink-mute); }
-  .btn-ghost:hover { color: var(--ink); }
-  .kbd { font-family: var(--mono); font-size: 11px; color: var(--ink-quiet); margin-left: 4px; padding: 2px 6px; border-radius: 4px; background: var(--paper-warm); border: 1px solid var(--line); }
-  .hint { font-size: 13px; color: var(--ink-quiet); margin-top: 14px; }
+  .btn-ghost:hover { color: var(--ink); background: var(--navy-soft); }
+  .kbd {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-quiet);
+    padding: 2px 7px; border-radius: 5px; background: var(--bg-deep);
+    border: 1px solid var(--line);
+  }
+  .hint { font-size: 13px; color: var(--ink-quiet); display: inline-flex; align-items: center; gap: 6px; }
 
-  /* ── Welcome / thank-you ── */
-  .splash { text-align: left; max-width: 640px; }
-  .splash .kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-ink); margin-bottom: 28px; }
-  .splash h1 { font-family: var(--serif); font-size: clamp(44px, 6vw, 72px); line-height: 1.02; letter-spacing: -0.02em; font-weight: 400; margin-bottom: 22px; }
-  .splash h1 em { font-style: italic; }
-  .splash p { font-size: 18px; color: var(--ink-mute); line-height: 1.6; margin-bottom: 14px; }
-  .meta { display: flex; gap: 28px; margin-top: 36px; font-family: var(--mono); font-size: 12px; color: var(--ink-mute); letter-spacing: 0.06em; text-transform: uppercase; }
-  .meta span strong { color: var(--ink); font-weight: 600; }
+  /* ── Splash (welcome / submit / thanks) ── */
+  .splash { text-align: left; max-width: 680px; }
+  .splash-logo { height: 38px; width: auto; margin-bottom: 40px; display: block; opacity: 0.95; }
+  .kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--gold-deep); margin-bottom: 28px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .kicker::before { content: ""; width: 22px; height: 1px; background: var(--gold); }
+  .splash h1 {
+    font-family: var(--sans); font-weight: 500;
+    font-size: clamp(40px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -0.035em;
+    color: var(--navy); margin-bottom: 24px;
+  }
+  .splash h1 em {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    color: var(--gold-deep); letter-spacing: -0.02em;
+  }
+  .splash p { font-size: 17px; color: var(--ink-mute); line-height: 1.65; margin-bottom: 14px; max-width: 600px; }
+  .splash p strong { color: var(--ink); font-weight: 500; }
+  .meta {
+    display: flex; gap: 28px; margin-top: 40px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-mute);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .meta span strong { color: var(--navy); font-weight: 600; }
 
-  /* ── Security notice ── */
-  .notice { background: var(--paper-warm); border-left: 2px solid var(--accent); padding: 16px 18px; border-radius: 4px; margin-bottom: 26px; font-size: 14px; line-height: 1.55; color: var(--ink-soft); }
-  .notice strong { color: var(--ink); }
+  /* ── Notice ── */
+  .notice {
+    background: var(--gold-soft); border-left: 2px solid var(--gold); padding: 18px 20px;
+    border-radius: 6px; margin-bottom: 30px; font-size: 14.5px;
+    line-height: 1.65; color: var(--ink-soft);
+  }
+  .notice strong { color: var(--navy); font-weight: 600; }
+
+  /* ── Sparkles on thanks ── */
+  .sparkles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .sparkle {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--gold); opacity: 0;
+    animation: float 3.5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+    15% { opacity: 0.9; }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.4); }
+  }
 
   /* ── Error ── */
-  .error { color: #B94518; font-size: 13px; margin-top: 10px; }
+  .error { color: #B94518; font-size: 13px; margin-top: 12px; font-family: var(--mono); letter-spacing: 0.01em; }
 
   /* ── Small screens ── */
   @media (max-width: 640px) {
     .topbar { padding: 14px 20px; }
-    .card-wrap { padding: 36px 20px 72px; }
-    .q-title { font-size: 26px; }
+    .brand-sub { display: none; }
+    .card-wrap { padding: 40px 22px 72px; }
+    .q-title { font-size: 24px; }
+    .splash h1 { font-size: 36px; }
     .choice-label { font-size: 15px; }
   }
 </style>
@@ -142,23 +305,71 @@
 <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
 
 <div class="stage" id="stage">
+  <div class="chapter" id="chapter">
+    <div class="chapter-body">
+      <span class="chapter-emoji" id="chapterEmoji"></span>
+      <div class="chapter-kicker" id="chapterKicker"></div>
+      <div class="chapter-title" id="chapterTitle"></div>
+    </div>
+  </div>
   <div class="card-wrap"><div class="card" id="card"></div></div>
+  <div class="sparkles" id="sparkles"></div>
 </div>
 
 <script>
 /* ─────────────────────────────────────────────────────────────
-   FORM SPEC — single source of truth
+   FORM SPEC
    ───────────────────────────────────────────────────────────── */
 const SECTIONS = [
-  { id: "s1", title: "Ki vagy és kivel dolgozunk együtt?" },
-  { id: "s2", title: "A fókusz, amire szerződtünk." },
-  { id: "s3", title: "Honnan fogjuk tudni, hogy nyertünk?" },
-  { id: "s4", title: "A technikai valóság." },
-  { id: "s5", title: "Hozzáférés — biztonságos csatornán." },
-  { id: "s6", title: "Amit szabad, és amit nem." },
-  { id: "s7", title: "Hogyan dolgozunk együtt." },
-  { id: "s8", title: "Ha nyerünk — megoszthatjuk?" },
+  { id: "s1", emoji: "\uD83D\uDC4B", title: "Ki vagy, es kivel dolgozunk?" },
+  { id: "s2", emoji: "\uD83C\uDFAF", title: "A fofokuszban levo pontok" },
+  { id: "s3", emoji: "\uD83D\uDD0E", title: "Versenykornyezet" },
+  { id: "s4", emoji: "\uD83D\uDEE0\uFE0F", title: "A technikai valosag" },
+  { id: "s5", emoji: "\uD83D\uDD10", title: "Hozzaferes — biztonsagos csatornan" },
+  { id: "s6", emoji: "\u2728", title: "Amit szabad, es amit nem" },
+  { id: "s7", emoji: "\uD83D\uDCAC", title: "Hogyan dolgozunk egyutt" },
+  { id: "s8", emoji: "\uD83C\uDF1F", title: "Egy utolso gondolat" },
 ];
+
+// Display-ready titles (with proper Hungarian diacritics via Unicode escapes to keep JS parser safe)
+const SECTION_DISPLAY = {
+  "s1": { emoji: "\uD83D\uDC4B", title: "Ki vagy, \u00e9s kivel dolgozunk?" },
+  "s2": { emoji: "\uD83C\uDFAF", title: "A f\u0151f\u00f3kuszban l\u00e9v\u0151 pontok" },
+  "s3": { emoji: "\uD83D\uDD0E", title: "Versenyk\u00f6rnyezet" },
+  "s4": { emoji: "\uD83D\uDEE0\uFE0F", title: "A technikai val\u00f3s\u00e1g" },
+  "s5": { emoji: "\uD83D\uDD10", title: "Hozz\u00e1f\u00e9r\u00e9s \u2014 biztons\u00e1gos csatorn\u00e1n" },
+  "s6": { emoji: "\u2728", title: "Amit szabad, \u00e9s amit nem" },
+  "s7": { emoji: "\uD83D\uDCAC", title: "Hogyan dolgozunk egy\u00fctt" },
+  "s8": { emoji: "\uD83C\uDF1F", title: "Egy utols\u00f3 gondolat" },
+};
+
+// All user-facing strings use \uXXXX escapes for Hungarian diacritics to guarantee
+// the JS parser never trips over stray quotes or encoding oddities.
+const H = {
+  // Welcome
+  welcome_kicker: "GEO / AEO / AI visibility",
+  welcome_h1: 'Üdv a Momentusnál. <em>Kezdjük el.</em>',
+  welcome_p1: "A következő néhány perc arra szolgál, hogy a csapatunk pontosan megértse a márkádat, a céljaidat és azt a két szakterületet, amire a szerződésünk alapján a következő hónapokban fókuszálunk.",
+  welcome_p2: "Minden válaszod közvetlenül beépül a stratégiai briefbe, amit a kickoff előtt összeállítunk.",
+  welcome_btn: "Kezdjük",
+  welcome_meta1: "~5 perc kitöltés",
+  welcome_meta2: "18 kérdés",
+  welcome_meta3: "Mentés automatikus",
+
+  // Submit
+  submit_kicker: "Utolsó lépés",
+  submit_h1: 'Készen állsz, <em>beküldjük?</em>',
+  submit_p1: "Ellenőriztük — minden szükséges válasz megvan. Kattintásra a Momentus csapata 2 munkanapon belül visszajelez.",
+  submit_btn: "Beküldés",
+  submit_back: "Vissza",
+
+  // Thanks
+  thanks_kicker: "Köszönjük",
+  thanks_h1: 'Innen <em>mi vesszük át.</em>',
+  thanks_p1: "A válaszaid most egyenesen a Momentus stratégiai csapatához kerülnek. A következő 2 munkanapban összeállítjuk a belső kickoff briefet, küldünk naptármeghívót a stratégiai indító workshopra, és egy biztonságos linket a hozzáférések átadásához.",
+  thanks_p2: "Addig is — jó kezekben vagy.",
+  thanks_sig: "— A Momentus csapata",
+};
 
 const STEPS = [
   { type: "welcome" },
@@ -168,59 +379,37 @@ const STEPS = [
     q: "Kezdjük a <em>legelején</em>. Mi a cég neve?",
     help: "Ez kerül minden belső dokumentumba és Slack-csatornába." },
   { section: "s1", id: "contact_name",   type: "text",       required: true,
-    q: "Te ki vagy, és mi a pozíciód?",
+    q: "Hogy hívnak, és milyen <em>pozícióban</em> vagy?",
     help: "Név + szerepkör — tudnunk kell, ki a fő döntéshozó a te oldaladon.",
     placeholder: "pl. Nagy Anna, Head of Marketing" },
   { section: "s1", id: "contact_email",  type: "email",      required: true,
     q: "Hova küldjük a riportokat és a meghívókat?",
     help: "Elsődleges kapcsolattartó e-mail." },
   { section: "s1", id: "daily_contact",  type: "choice",     required: true,
-    q: "Ki lesz a napi szintű kapcsolattartó a csapatunk felé?",
+    q: "Ki lesz a napi szintű <em>kapcsolattartó</em> a csapatunk felé?",
     options: ["Én magam", "Másik kolléga", "Külsős partner / ügynökség"] },
   { section: "s1", id: "daily_contact_info", type: "long",   required: false,
     q: "Add meg az ő nevét, pozícióját és e-mail címét.",
     help: "Egy jól meghatározott DRI = gyors iteráció.",
-    when: (a) => a.daily_contact && a.daily_contact !== "Én magam" },
+    when: function(a){ return a.daily_contact && a.daily_contact !== "Én magam"; } },
 
   // S2
   { section: "s2", id: "company_desc",   type: "long",       required: true,
-    q: "Röviden: <em>mit csinál a cég, és kinek?</em>",
-    help: "Egyetlen tiszta bekezdés. Ne a weboldaltokról akarjuk kitalálni." },
-  { section: "s2", id: "priority_1",     type: "text",       required: true,
-    q: "A szerződés szerint 2 szakterületre fókuszálunk. Mi az <em>1. priorizált</em> szakterület?",
-    help: "A teljes audit és content stratégia e köré épül." },
-  { section: "s2", id: "priority_2",     type: "text",       required: true,
-    q: "És a <em>2. priorizált</em> szakterület?",
-    help: "A második, szerződésben rögzített fókusz." },
+    q: "Röviden: <em>mit csináltok, és kinek?</em>",
+    help: "A legfontosabb dolog/dolgok amit szeretnétek, hogy rólatok tudjanak az emberek — 1–2 mondatban." },
   { section: "s2", id: "priority_reason", type: "long",      required: true,
-    q: "Miért pont ez a kettő? Mi a stratégiai ok?",
+    q: "Miért pont ezt a <em>két témát</em> választottátok? Mik a legfőbb stratégiai okok?",
     help: "Margin, új piac, kapacitás, szezonalitás — az üzleti kontextus számít, nem csak a keresési volumen." },
-  { section: "s2", id: "geo_markets",    type: "multi",      required: true,
-    q: "Mely földrajzi piac(ok)ra fókuszálunk?",
-    options: ["Magyarország", "DACH", "CEE régió", "EU", "Egyéb"] },
 
   // S3
-  { section: "s3", id: "extra_kpis",     type: "long",       required: false,
-    q: "A fő KPI a <em>Top 3 AI-ajánlási láthatóság</em>. Van ezen felül belső KPI-d, ami számít?",
-    help: "Lead, forgalom, offer request, pipeline — amit a vezetőség felé vállaltál. Ezt tükrözi a belső reporting." },
-  { section: "s3", id: "sample_prompts", type: "long",       required: true,
-    q: "Adj meg 5–10 kérdést, amit egy ideális ügyfél beírna <em>ChatGPT / Perplexity / Google AI-ba</em>.",
-    help: "Ez a baseline AI-visibility teszt alapja. Soronként egyet.",
-    placeholder: "Melyik a legjobb ... Budapesten?\nHogyan válasszak ...\nMennyibe kerül egy ..." },
   { section: "s3", id: "competitors",    type: "long",       required: true,
-    q: "Kik a <em>3–5 legfontosabb versenytársad</em> a 2 priorizált szakterületen?",
+    q: "Kik a <em>3–5 legfontosabb versenytársatok</em> a két priorizált szakterületen?",
     help: "Formátum: név + weboldal, soronként egy.",
     placeholder: "Versenytárs A — versenytarsa.hu" },
-  { section: "s3", id: "overperformer",  type: "text",       required: false,
-    q: "Van olyan szereplő, aki szerinted \u201eméltánytalanul\u201d jobban teljesít AI találatokban, mint te?",
-    help: "Opcionális — sokszor itt derül ki egy niche GEO-trükkel előnyt szerző versenytárs." },
 
   // S4
-  { section: "s4", id: "website_url",    type: "url",        required: true,
-    q: "Weboldal URL",
-    placeholder: "https://..." },
   { section: "s4", id: "cms",            type: "select",     required: true,
-    q: "Milyen <em>CMS-en</em> fut a weboldal?",
+    q: "Milyen <em>platformon</em> fut a weboldalotok?",
     help: "Ez dönti el, hogy a GEO content blockokat és a schema módosításokat mi magunk tudjuk-e végrehajtani.",
     options: ["WordPress", "Webflow", "Shopify", "Drupal", "Headless (Next.js, Astro, stb.)", "Egyedi fejlesztésű", "Nem tudom", "Egyéb"] },
   { section: "s4", id: "implementer",    type: "choice",     required: true,
@@ -243,26 +432,10 @@ const STEPS = [
   // S5
   { section: "s5", id: "_access_notice", type: "notice",
     q: "Hozzáférések — nem itt, hanem biztonságos csatornán.",
-    help: "<strong>Fontos:</strong> jelszavakat vagy tokeneket <strong>soha ne küldj be ezen az űrlapon</strong>. Itt csak azt rögzítjük, <strong>ki</strong> fogja biztosítani a hozzáféréseket. A kickoff után egy titkosított csatornán (1Password megosztott széf vagy Bitwarden Send link) kérjük el őket." },
-  { section: "s5", id: "ga4_owner",      type: "text",       required: true,
-    q: "Ki biztosítja a <em>Google Analytics 4</em> hozzáférést?",
-    help: "Név + e-mail. Viewer szintű meghívó megy nekünk.",
-    placeholder: "pl. Kovács Péter, peter@..." },
-  { section: "s5", id: "gsc_owner",      type: "text",       required: true,
-    q: "Ki biztosítja a <em>Google Search Console</em> hozzáférést?",
-    help: "Név + e-mail.",
-    placeholder: "pl. Kovács Péter, peter@..." },
+    help: "<strong>Fontos:</strong> jelszavakat vagy tokeneket <strong>soha ne küldj be ezen az űrlapon</strong>. Itt csak azt rögzítjük, <strong>ki</strong> fogja biztosítani a hozzáféréseket. A kickoff után egy titkosított csatornán a <strong>Slack</strong> nevű platformon belül kérjük el." },
   { section: "s5", id: "other_tools",    type: "multi",      required: false,
-    q: "Milyen további analitikai / marketing eszközt használtok?",
+    q: "Milyen további <em>analitikai / marketing eszközt</em> használtok?",
     options: ["Ahrefs", "SEMrush", "Similarweb", "HubSpot", "Hotjar", "Mixpanel", "Google Tag Manager", "Meta Ads", "Google Ads", "Egyéb", "Nincs ilyen"] },
-  { section: "s5", id: "secure_channel", type: "choice",     required: true,
-    q: "Milyen csatornán tudod <em>biztonságosan átadni</em> a hozzáféréseket?",
-    options: [
-      "1Password megosztott széf",
-      "Bitwarden Send (időkorlátos link)",
-      "Saját SSO / admin meghívón keresztül (nincs jelszócsere)",
-      "Nincs preferenciám — javasoljatok ti"
-    ] },
 
   // S6
   { section: "s6", id: "brand_guidelines_link", type: "long", required: false,
@@ -278,43 +451,29 @@ const STEPS = [
     q: "A szakterületetek <em>szabályozott piacon</em> mozog? (pl. egészségügy, pénzügy, jog)",
     options: ["Igen — szigorú compliance", "Részben", "Nem"] },
   { section: "s6", id: "compliance_approver", type: "long",  required: false,
-    q: "Ki a jogi/compliance jóváhagyó, és mi az átfutási idő?",
-    when: (a) => a.regulated_market && a.regulated_market !== "Nem" },
+    q: "Ki a jogi/compliance <em>jóváhagyó</em>, és mi az átfutási idő?",
+    when: function(a){ return a.regulated_market && a.regulated_market !== "Nem"; } },
 
   // S7
   { section: "s7", id: "comm_channel",   type: "choice",     required: true,
     q: "Preferált fő <em>kommunikációs csatorna</em> a projekt alatt?",
     help: "A Slack Connect a default a Momentusnál — gyors visszacsatolás, minden dokumentálva.",
-    options: ["Közös Slack Connect csatorna (ajánlott)", "E-mail", "Microsoft Teams", "Egyéb"] },
+    options: ["Közös Slack Connect csatorna (ajánlott)", "E-mail", "Egyéb"] },
   { section: "s7", id: "cadence",        type: "choice",     required: true,
-    q: "Heti státusz ritmus — mi a preferenciád?",
+    q: "Heti státusz ritmus — mi a <em>preferenciád</em>?",
     options: [
       "Heti 30 perces videós státusz + írásos report",
       "Csak írásos heti report",
       "Kétheti videós + havi nagy review"
     ] },
-  { section: "s7", id: "approver",       type: "text",       required: true,
-    q: "Ki az az <em>egy személy</em>, aki a javaslatokat jóváhagyja a ti oldalatokon?",
-    help: "Egy jóváhagyó = gyors iteráció. Több jóváhagyó = projekt-lassulás.",
-    placeholder: "Név + szerepkör" },
   { section: "s7", id: "low_capacity",   type: "long",       required: false,
-    q: "Van olyan <em>időszak a következő 6 hónapban</em>, amikor szűkebb kapacitással dolgoztok?",
+    q: "Van olyan időszak a <em>következő 2 hónapban</em>, amikor szűkebb kapacitással dolgoztok?",
     help: "Szabadság, termékindítás, vásár — a roadmap-et ehhez igazítjuk." },
 
   // S8
-  { section: "s8", id: "reference_consent", type: "choice",  required: true,
-    q: "A szerződés alapján a pozitív eredményeket előzetes jóváhagyással esettanulmányként használhatjuk. Mi a <em>kiinduló álláspontod</em>?",
-    options: [
-      "Igen, nyitott vagyok rá — konkrét jóváhagyás mindig az adott tartalomra",
-      "Csak anonimizálva (iparág + számok, cégnév nélkül)",
-      "Egyelőre nem szeretném"
-    ] },
-  { section: "s8", id: "pr_approver",    type: "text",       required: false,
-    q: "Ki a <em>marketing/PR oldali jóváhagyó</em> egy esetleges case studyhoz?",
-    when: (a) => a.reference_consent && !a.reference_consent.startsWith("Egyelőre") },
   { section: "s8", id: "final_notes",    type: "long",       required: false,
-    q: "Bármi, amit még tudnunk kellene, de nem kérdeztünk meg?",
-    help: "A legjobb insightok sokszor itt jönnek. Hagyunk rá teret." },
+    q: "Bármi, amit <em>még tudnunk kellene</em>, de nem kérdeztünk meg?",
+    help: "A legjobb gondolatok sokszor itt jönnek. Hagyunk rá teret." },
 
   { type: "submit" },
   { type: "thanks" },
@@ -323,158 +482,180 @@ const STEPS = [
 /* ─────────────────────────────────────────────────────────────
    STATE + RENDER
    ───────────────────────────────────────────────────────────── */
-const state = { idx: 0, answers: {} };
+const state = { idx: 0, answers: {}, lastSection: null };
 const card = document.getElementById("card");
 const progressBar = document.getElementById("progressBar");
 const stepPill = document.getElementById("stepPill");
+const chapter = document.getElementById("chapter");
+const chapterEmoji = document.getElementById("chapterEmoji");
+const chapterKicker = document.getElementById("chapterKicker");
+const chapterTitle = document.getElementById("chapterTitle");
+const sparklesEl = document.getElementById("sparkles");
 
-function visibleSteps() {
-  return STEPS.filter(s => !s.when || s.when(state.answers));
-}
-function currentStep() {
-  return visibleSteps()[state.idx];
-}
-function totalRealSteps() {
-  return visibleSteps().filter(s => s.id && s.type !== "notice").length;
-}
-function answeredCount() {
-  return Object.keys(state.answers).length;
+function visibleSteps() { return STEPS.filter(function(s){ return !s.when || s.when(state.answers); }); }
+function currentStep() { return visibleSteps()[state.idx]; }
+function totalRealSteps() { return visibleSteps().filter(function(s){ return s.id && s.type !== "notice"; }).length; }
+
+function showChapter(sectionId) {
+  const info = SECTION_DISPLAY[sectionId];
+  if (!info) return Promise.resolve();
+  chapterEmoji.textContent = info.emoji;
+  chapterKicker.textContent = "Section " + sectionId.replace("s", "0");
+  chapterTitle.textContent = info.title;
+  chapter.classList.add("on");
+  return new Promise(function(resolve){
+    setTimeout(function(){
+      chapter.classList.remove("on");
+      setTimeout(resolve, 380);
+    }, 950);
+  });
 }
 
-function render() {
+async function render() {
   const steps = visibleSteps();
   if (state.idx < 0) state.idx = 0;
   if (state.idx >= steps.length) state.idx = steps.length - 1;
   const step = steps[state.idx];
 
-  const realIndex = steps.slice(0, state.idx + 1).filter(s => s.id && s.type !== "notice").length;
+  // Chapter overlay when section changes (skip on welcome/submit/thanks)
+  if (step.section && step.section !== state.lastSection && !["welcome","submit","thanks"].includes(step.type)) {
+    state.lastSection = step.section;
+    await showChapter(step.section);
+  } else if (!step.section) {
+    state.lastSection = null;
+  }
+
+  const realIndex = steps.slice(0, state.idx + 1).filter(function(s){ return s.id && s.type !== "notice"; }).length;
   const total = totalRealSteps();
   progressBar.style.width = Math.round((realIndex / Math.max(total, 1)) * 100) + "%";
   stepPill.textContent = step.type === "welcome" || step.type === "thanks"
-    ? (step.type === "thanks" ? "✓" : "00")
+    ? (step.type === "thanks" ? "\u2713" : "00")
     : String(realIndex).padStart(2, "0") + " / " + String(total).padStart(2, "0");
 
   card.innerHTML = renderStep(step);
   card.classList.add("enter");
-  requestAnimationFrame(() => requestAnimationFrame(() => card.classList.remove("enter")));
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ card.classList.remove("enter"); }); });
   wire(step);
+
+  if (step.type === "thanks") spawnSparkles();
+
   const focusEl = card.querySelector("input, textarea, select, .choice");
-  if (focusEl && focusEl.focus) setTimeout(() => focusEl.focus(), 60);
+  if (focusEl && focusEl.focus) setTimeout(function(){ focusEl.focus(); }, 80);
 }
 
-function sectionOf(step) {
-  return SECTIONS.find(s => s.id === step.section);
-}
+function sectionOf(step) { return SECTION_DISPLAY[step.section]; }
 
 function renderStep(step) {
-  if (step.type === "welcome") return `
-    <div class="splash">
-      <img src="/static/momentus-logo.jpg" alt="Momentus" class="splash-logo" onerror="this.style.display='none';" />
-      <div class="kicker">GEO / AEO / AI visibility</div>
-      <h1>Üdv a Momentusnál. <em>Kezdjük el.</em></h1>
-      <p>A következő néhány perc arra szolgál, hogy a csapatunk pontosan megértse a márkádat, a céljaidat és azt a két szakterületet, amire a szerződésünk alapján a következő hónapokban fókuszálunk.</p>
-      <p>Minden válaszod közvetlenül beépül a stratégiai briefbe, amit a kickoff előtt összeállítunk.</p>
-      <div class="actions">
-        <button class="btn btn-primary" data-next>Kezdjük <span>→</span></button>
-        <span class="hint">Enter <span class="kbd">↵</span></span>
-      </div>
-      <div class="meta">
-        <span><strong>~9 perc</strong> kitöltés</span>
-        <span><strong>33</strong> kérdés</span>
-        <span>Mentés <strong>automatikus</strong></span>
-      </div>
-    </div>`;
+  if (step.type === "welcome") return '' +
+    '<div class="splash">' +
+      '<img src="/static/momentus-logo.jpg" alt="Momentus" class="splash-logo" onerror="this.style.display=\'none\';" />' +
+      '<div class="kicker">' + H.welcome_kicker + '</div>' +
+      '<h1>' + H.welcome_h1 + '</h1>' +
+      '<p>' + H.welcome_p1 + '</p>' +
+      '<p>' + H.welcome_p2 + '</p>' +
+      '<div class="actions">' +
+        '<button class="btn btn-primary" data-next>' + H.welcome_btn + ' <span class="arrow">\u2192</span></button>' +
+        '<span class="hint">Enter <span class="kbd">\u21B5</span></span>' +
+      '</div>' +
+      '<div class="meta">' +
+        '<span><strong>~5 perc</strong> kitöltés</span>' +
+        '<span><strong>18</strong> kérdés</span>' +
+        '<span>Mentés <strong>automatikus</strong></span>' +
+      '</div>' +
+    '</div>';
 
-  if (step.type === "submit") return `
-    <div class="splash">
-      <div class="kicker">Utolsó lépés</div>
-      <h1>Készen állsz, <em>beküldjük?</em></h1>
-      <p>Ellenőriztük — minden szükséges válasz megvan. Kattintásra a Momentus csapata 2 munkanapon belül visszajelez.</p>
-      <div class="actions">
-        <button class="btn btn-primary" id="submitBtn">Beküldés <span>→</span></button>
-        <button class="btn btn-ghost" data-prev>Vissza</button>
-      </div>
-      <div class="error" id="submitError" style="display:none"></div>
-    </div>`;
+  if (step.type === "submit") return '' +
+    '<div class="splash">' +
+      '<div class="kicker">' + H.submit_kicker + '</div>' +
+      '<h1>' + H.submit_h1 + '</h1>' +
+      '<p>' + H.submit_p1 + '</p>' +
+      '<div class="actions">' +
+        '<button class="btn btn-primary" id="submitBtn">' + H.submit_btn + ' <span class="arrow">\u2192</span></button>' +
+        '<button class="btn btn-ghost" data-prev>' + H.submit_back + '</button>' +
+      '</div>' +
+      '<div class="error" id="submitError" style="display:none"></div>' +
+    '</div>';
 
-  if (step.type === "thanks") return `
-    <div class="splash">
-      <div class="kicker">Köszönjük</div>
-      <h1>Innen <em>mi vesszük át.</em></h1>
-      <p>A válaszaid most egyenesen a Momentus stratégiai csapatához kerülnek. A következő 2 munkanapban összeállítjuk a belső kickoff briefet, küldünk naptármeghívót a stratégiai indító workshopra, és egy biztonságos linket a hozzáférések átadásához.</p>
-      <p>Addig is — jó kezekben vagy.</p>
-      <div class="meta"><span>— A <strong>Momentus</strong> csapat</span></div>
-    </div>`;
+  if (step.type === "thanks") return '' +
+    '<div class="splash">' +
+      '<div class="kicker">' + H.thanks_kicker + '</div>' +
+      '<h1>' + H.thanks_h1 + '</h1>' +
+      '<p>' + H.thanks_p1 + '</p>' +
+      '<p>' + H.thanks_p2 + '</p>' +
+      '<div class="meta"><span>' + H.thanks_sig + '</span></div>' +
+    '</div>';
 
   const sec = sectionOf(step);
-  const secTag = sec ? `<div class="section-tag">${sec.title}</div>` : "";
-  const num = `<div class="q-number">${String(visibleSteps().slice(0, state.idx+1).filter(s => s.id && s.type !== "notice").length).padStart(2,"0")}</div>`;
-  const help = step.help ? `<div class="q-help">${step.help}</div>` : "";
+  const secTag = sec
+    ? '<div class="section-tag"><span class="section-emoji">' + sec.emoji + '</span>' + sec.title + '</div>'
+    : '';
+  const realN = visibleSteps().slice(0, state.idx + 1).filter(function(s){ return s.id && s.type !== "notice"; }).length;
+  const num = '<div class="q-number">' + String(realN).padStart(2, "0") + '</div>';
+  const help = step.help ? '<div class="q-help">' + step.help + '</div>' : '';
 
-  if (step.type === "notice") return `
-    ${secTag}
-    <h2 class="q-title">${step.q}</h2>
-    <div class="notice">${step.help}</div>
-    <div class="actions">
-      <button class="btn btn-primary" data-next>Értettem <span>→</span></button>
-      <button class="btn btn-ghost" data-prev>Vissza</button>
-    </div>`;
+  if (step.type === "notice") return '' +
+    secTag +
+    '<h2 class="q-title">' + step.q + '</h2>' +
+    '<div class="notice">' + step.help + '</div>' +
+    '<div class="actions">' +
+      '<button class="btn btn-primary" data-next>\u00c9rtettem <span class="arrow">\u2192</span></button>' +
+      '<button class="btn btn-ghost" data-prev>Vissza</button>' +
+    '</div>';
 
-  const v = state.answers[step.id] ?? (step.type === "multi" ? [] : "");
+  const v = state.answers[step.id] !== undefined ? state.answers[step.id] : (step.type === "multi" ? [] : "");
 
   let field = "";
   if (step.type === "text" || step.type === "email" || step.type === "url") {
-    field = `<input type="${step.type}" id="f" value="${escapeAttr(v)}" placeholder="${escapeAttr(step.placeholder || "Kezdj el gépelni…")}" autocomplete="off" />`;
+    field = '<input type="' + step.type + '" id="f" value="' + escapeAttr(v) + '" placeholder="' + escapeAttr(step.placeholder || "Kezdj el g\u00e9pelni\u2026") + '" autocomplete="off" />';
   } else if (step.type === "long") {
-    field = `<textarea id="f" placeholder="${escapeAttr(step.placeholder || "Kezdj el gépelni…")}">${escapeHtml(v)}</textarea>`;
+    field = '<textarea id="f" placeholder="' + escapeAttr(step.placeholder || "Kezdj el g\u00e9pelni\u2026") + '">' + escapeHtml(v) + '</textarea>';
   } else if (step.type === "select") {
-    field = `<select id="f"><option value="" disabled ${v ? "" : "selected"}>Válassz…</option>${
-      step.options.map(o => `<option value="${escapeAttr(o)}" ${v===o?"selected":""}>${escapeHtml(o)}</option>`).join("")
-    }</select>`;
+    field = '<select id="f"><option value="" disabled ' + (v ? "" : "selected") + '>V\u00e1lassz\u2026</option>' +
+      step.options.map(function(o){ return '<option value="' + escapeAttr(o) + '" ' + (v === o ? "selected" : "") + '>' + escapeHtml(o) + '</option>'; }).join("") +
+      '</select>';
   } else if (step.type === "choice") {
-    field = `<div class="choices" id="f">${
-      step.options.map((o, i) => `
-        <label class="choice ${v===o?"selected":""}" data-val="${escapeAttr(o)}">
-          <span class="choice-key">${String.fromCharCode(65+i)}</span>
-          <span class="choice-label">${escapeHtml(o)}</span>
-        </label>`).join("")
-    }</div>`;
+    field = '<div class="choices" id="f">' +
+      step.options.map(function(o, i){
+        return '<label class="choice ' + (v === o ? "selected" : "") + '" data-val="' + escapeAttr(o) + '">' +
+          '<span class="choice-key">' + String.fromCharCode(65 + i) + '</span>' +
+          '<span class="choice-label">' + escapeHtml(o) + '</span>' +
+          '</label>';
+      }).join("") + '</div>';
   } else if (step.type === "multi") {
     const arr = Array.isArray(v) ? v : [];
-    field = `<div class="choices" id="f">${
-      step.options.map((o, i) => `
-        <label class="choice ${arr.includes(o)?"selected":""}" data-val="${escapeAttr(o)}">
-          <span class="choice-key">${arr.includes(o) ? "✓" : String.fromCharCode(65+i)}</span>
-          <span class="choice-label">${escapeHtml(o)}</span>
-        </label>`).join("")
-    }</div>`;
+    field = '<div class="choices" id="f">' +
+      step.options.map(function(o, i){
+        return '<label class="choice ' + (arr.includes(o) ? "selected" : "") + '" data-val="' + escapeAttr(o) + '">' +
+          '<span class="choice-key">' + (arr.includes(o) ? "\u2713" : String.fromCharCode(65 + i)) + '</span>' +
+          '<span class="choice-label">' + escapeHtml(o) + '</span>' +
+          '</label>';
+      }).join("") + '</div>';
   } else if (step.type === "file") {
-    field = `
-      <label class="file-drop" for="fileInput">
-        <div>Kattints vagy húzd ide a fájlt (PDF / DOCX)</div>
-        <div class="file-name" id="fileName">${v && v.name ? escapeHtml(v.name) : ""}</div>
-      </label>
-      <input type="file" id="fileInput" accept=".pdf,.doc,.docx" style="display:none" />`;
+    field = '' +
+      '<label class="file-drop" for="fileInput">' +
+        '<div>Kattints vagy h\u00fazd ide a f\u00e1jlt (PDF / DOCX)</div>' +
+        '<div class="file-name" id="fileName">' + (v && v.name ? escapeHtml(v.name) : "") + '</div>' +
+      '</label>' +
+      '<input type="file" id="fileInput" accept=".pdf,.doc,.docx" style="display:none" />';
   }
 
-  return `
-    ${secTag}
-    ${num}
-    <h2 class="q-title">${step.q}</h2>
-    ${help}
-    <div class="field">${field}</div>
-    <div class="actions">
-      <button class="btn btn-primary" id="nextBtn">OK <span>→</span></button>
-      <button class="btn btn-ghost" data-prev>Vissza</button>
-      <span class="hint">nyomd meg az Enter-t <span class="kbd">↵</span></span>
-    </div>
-    <div class="error" id="err" style="display:none"></div>
-  `;
+  return '' +
+    secTag +
+    num +
+    '<h2 class="q-title">' + step.q + '</h2>' +
+    help +
+    '<div class="field" id="fieldWrap">' + field + '</div>' +
+    '<div class="actions">' +
+      '<button class="btn btn-primary" id="nextBtn">OK <span class="arrow">\u2192</span></button>' +
+      '<button class="btn btn-ghost" data-prev>Vissza</button>' +
+      '<span class="hint">nyomd meg az Enter-t <span class="kbd">\u21B5</span></span>' +
+    '</div>' +
+    '<div class="error" id="err" style="display:none"></div>';
 }
 
 function wire(step) {
-  card.querySelectorAll("[data-next]").forEach(b => b.onclick = () => advance());
-  card.querySelectorAll("[data-prev]").forEach(b => b.onclick = () => { state.idx--; render(); });
+  card.querySelectorAll("[data-next]").forEach(function(b){ b.onclick = function(){ advance(); }; });
+  card.querySelectorAll("[data-prev]").forEach(function(b){ b.onclick = function(){ state.idx--; render(); }; });
 
   if (step.type === "welcome" || step.type === "notice") return;
 
@@ -485,42 +666,46 @@ function wire(step) {
   if (step.type === "thanks") return;
 
   const nextBtn = document.getElementById("nextBtn");
+  const fieldWrap = document.getElementById("fieldWrap");
+
   if (step.type === "choice") {
-    card.querySelectorAll(".choice").forEach(el => {
-      el.onclick = () => {
+    card.querySelectorAll(".choice").forEach(function(el){
+      el.onclick = function(){
         state.answers[step.id] = el.dataset.val;
         advance();
       };
     });
   } else if (step.type === "multi") {
-    card.querySelectorAll(".choice").forEach(el => {
-      el.onclick = () => {
-        const cur = Array.isArray(state.answers[step.id]) ? [...state.answers[step.id]] : [];
-        const v = el.dataset.val;
-        const i = cur.indexOf(v);
-        if (i >= 0) cur.splice(i, 1); else cur.push(v);
+    card.querySelectorAll(".choice").forEach(function(el){
+      el.onclick = function(){
+        const cur = Array.isArray(state.answers[step.id]) ? state.answers[step.id].slice() : [];
+        const val = el.dataset.val;
+        const i = cur.indexOf(val);
+        if (i >= 0) cur.splice(i, 1); else cur.push(val);
         state.answers[step.id] = cur;
         render();
       };
     });
-    nextBtn.onclick = () => advance();
+    nextBtn.onclick = function(){ advance(); };
   } else if (step.type === "file") {
     const input = document.getElementById("fileInput");
     const drop = card.querySelector(".file-drop");
-    drop.addEventListener("dragover", e => { e.preventDefault(); drop.style.borderColor = "var(--accent)"; });
-    drop.addEventListener("dragleave", () => { drop.style.borderColor = ""; });
-    drop.addEventListener("drop", e => { e.preventDefault(); if (e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]); });
-    input.onchange = () => input.files[0] && onFile(input.files[0]);
+    drop.addEventListener("dragover", function(e){ e.preventDefault(); drop.style.borderColor = "var(--gold)"; });
+    drop.addEventListener("dragleave", function(){ drop.style.borderColor = ""; });
+    drop.addEventListener("drop", function(e){ e.preventDefault(); if (e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]); });
+    input.onchange = function(){ if (input.files[0]) onFile(input.files[0]); };
     function onFile(f) {
       state.answers[step.id] = { name: f.name, size: f.size };
       document.getElementById("fileName").textContent = f.name;
     }
-    nextBtn.onclick = () => advance();
+    nextBtn.onclick = function(){ advance(); };
   } else {
     const f = document.getElementById("f");
-    f.oninput = () => { state.answers[step.id] = f.value.trim(); };
-    if (step.type === "select") f.onchange = () => { state.answers[step.id] = f.value; advance(); };
-    nextBtn.onclick = () => advance();
+    f.oninput = function(){ state.answers[step.id] = f.value.trim(); };
+    f.onfocus = function(){ if (fieldWrap) fieldWrap.classList.add("focused"); };
+    f.onblur = function(){ if (fieldWrap) fieldWrap.classList.remove("focused"); };
+    if (step.type === "select") f.onchange = function(){ state.answers[step.id] = f.value; advance(); };
+    nextBtn.onclick = function(){ advance(); };
   }
 }
 
@@ -537,18 +722,18 @@ function advance() {
   const step = currentStep();
   if (step && step.id && !validate(step)) {
     const e = document.getElementById("err");
-    if (e) { e.textContent = "Ez a mező kötelező — folytassuk ezzel."; e.style.display = "block"; }
+    if (e) { e.textContent = "Ez a mez\u0151 k\u00f6telez\u0151 \u2014 folytassuk ezzel."; e.style.display = "block"; }
     return;
   }
   state.idx++;
   render();
 }
 
-document.addEventListener("keydown", e => {
+document.addEventListener("keydown", function(e){
   if (e.key === "Enter" && !e.shiftKey) {
     const step = currentStep();
     if (!step) return;
-    if (["long"].includes(step.type)) return; // allow newlines in long text
+    if (["long"].includes(step.type)) return;
     e.preventDefault();
     if (step.type === "submit") return submit();
     advance();
@@ -556,13 +741,30 @@ document.addEventListener("keydown", e => {
 });
 
 /* ─────────────────────────────────────────────────────────────
+   SPARKLES (thanks page)
+   ───────────────────────────────────────────────────────────── */
+function spawnSparkles() {
+  sparklesEl.innerHTML = "";
+  for (let i = 0; i < 24; i++) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = 40 + Math.random() * 40 + "%";
+    s.style.setProperty("--dx", (Math.random() * 120 - 60) + "px");
+    s.style.setProperty("--dy", (-80 - Math.random() * 120) + "px");
+    s.style.animationDelay = (Math.random() * 1.8) + "s";
+    s.style.animationDuration = (2.5 + Math.random() * 2) + "s";
+    sparklesEl.appendChild(s);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
    SUBMIT
    ───────────────────────────────────────────────────────────── */
 async function submit() {
   const btn = document.getElementById("submitBtn");
   const err = document.getElementById("submitError");
-  btn.disabled = true; btn.innerHTML = "Beküldés…";
-  // File payloads are metadata only — full upload handled in secure channel post-kickoff.
+  btn.disabled = true; btn.innerHTML = "Bek\u00fcld\u00e9s\u2026";
   const payload = { answers: state.answers };
   try {
     const r = await fetch("/submit", {
@@ -574,14 +776,14 @@ async function submit() {
     if (!r.ok || !j.success) throw new Error(j.error || "Ismeretlen hiba");
     state.idx++; render();
   } catch (e) {
-    btn.disabled = false; btn.innerHTML = "Beküldés <span>→</span>";
-    err.textContent = "Hiba: " + e.message + ". Próbáld újra, vagy írj a hello@momentus.hu címre.";
+    btn.disabled = false; btn.innerHTML = "Bek\u00fcld\u00e9s <span class=\"arrow\">\u2192</span>";
+    err.textContent = "Hiba: " + e.message + ". Pr\u00f3b\u00e1ld \u00fajra, vagy \u00edrj a hello@momentus.hu c\u00edmre.";
     err.style.display = "block";
   }
 }
 
 /* utilities */
-function escapeHtml(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;" })[c]); }
+function escapeHtml(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c]; }); }
 function escapeAttr(s){ return escapeHtml(s).replace(/\n/g, " "); }
 
 render();

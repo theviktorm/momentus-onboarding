@@ -17,7 +17,8 @@ from email.message import EmailMessage
 from pathlib import Path
 from typing import Any, Dict
 
-from fastapi import FastAPI, HTTPException, Request
+import anyio
+from fastapi import BackgroundTasks, FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 
@@ -119,7 +120,8 @@ def format_answers_text(answers: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def send_email(row_id: str, answers: Dict[str, Any]) -> bool:
+def send_email_sync(row_id: str, answers: Dict[str, Any]) -> bool:
+    """Blocking SMTP send. Call via threadpool or background task."""
     if not (SMTP_HOST and SMTP_USER and SMTP_PASS):
         log.warning("SMTP not configured — skipping email for %s", row_id)
         return False
@@ -153,11 +155,11 @@ def send_email(row_id: str, answers: Dict[str, Any]) -> bool:
     try:
         ctx = ssl.create_default_context()
         if SMTP_PORT == 465:
-            with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, context=ctx, timeout=20) as s:
+            with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, context=ctx, timeout=15) as s:
                 s.login(SMTP_USER, SMTP_PASS)
                 s.send_message(msg)
         else:
-            with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=20) as s:
+            with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=15) as s:
                 s.ehlo()
                 s.starttls(context=ctx)
                 s.ehlo()
@@ -166,8 +168,18 @@ def send_email(row_id: str, answers: Dict[str, Any]) -> bool:
         log.info("Email sent for %s → %s", row_id, SMTP_TO)
         return True
     except Exception as e:
-        log.error("Email failed for %s: %s", row_id, e)
+        log.error("Email failed for %s: %s: %s", row_id, type(e).__name__, e)
         return False
+
+
+def send_email_and_mark(row_id: str, answers: Dict[str, Any]) -> None:
+    """Background task: send email, update DB emailed flag on success."""
+    ok = send_email_sync(row_id, answers)
+    if ok:
+        try:
+            db_mark_emailed(row_id)
+        except Exception as e:
+            log.error("db_mark_emailed failed for %s: %s", row_id, e)
 
 
 # ─────────────────────────────────────────────────────────────
@@ -199,7 +211,7 @@ async def health():
 
 
 @app.post("/submit")
-async def submit(request: Request):
+async def submit(request: Request, background: BackgroundTasks):
     try:
         payload = await request.json()
     except Exception:
@@ -210,9 +222,28 @@ async def submit(request: Request):
         raise HTTPException(400, "No answers provided")
 
     row_id = "sub-" + uuid.uuid4().hex[:12]
-    db_insert(row_id, answers)
-    ok = send_email(row_id, answers)
-    if ok:
-        db_mark_emailed(row_id)
+    # DB write is fast (local sqlite) — run in threadpool anyway to keep loop clear.
+    await anyio.to_thread.run_sync(db_insert, row_id, answers)
 
-    return JSONResponse({"success": True, "data": {"submission_id": row_id, "emailed": ok}})
+    # Email send is slow + can hang. Queue as background task so we respond
+    # immediately and the user never sees a 503 from Railway's edge timing out.
+    background.add_task(send_email_and_mark, row_id, answers)
+
+    return JSONResponse({"success": True, "data": {"submission_id": row_id, "queued": True}})
+
+
+@app.post("/api/resend/{row_id}")
+async def resend(row_id: str, background: BackgroundTasks):
+    """Manual retry hook — re-fetches answers from DB and re-queues email."""
+    def _fetch():
+        conn = sqlite3.connect(DB_PATH)
+        cur = conn.execute("SELECT answers_json FROM submissions WHERE id = ?", (row_id,))
+        row = cur.fetchone()
+        conn.close()
+        return row
+    row = await anyio.to_thread.run_sync(_fetch)
+    if not row:
+        raise HTTPException(404, "Submission not found")
+    answers = json.loads(row[0])
+    background.add_task(send_email_and_mark, row_id, answers)
+    return {"success": True, "data": {"submission_id": row_id, "queued": True}}

@@ -12,6 +12,8 @@ import smtplib
 import socket
 import sqlite3
 import ssl
+import urllib.request
+import urllib.error
 import uuid
 from datetime import datetime
 from email.message import EmailMessage
@@ -35,6 +37,10 @@ SMTP_USER = os.environ.get("SMTP_USER", "")
 SMTP_PASS = os.environ.get("SMTP_PASS", "")
 SMTP_FROM = os.environ.get("SMTP_FROM", SMTP_USER or "noreply@momentus.hu")
 SMTP_TO = os.environ.get("SMTP_TO", "v.mozsa@gmail.com")
+
+# Resend HTTP API (preferred — Railway blocks outbound SMTP).
+RESEND_API_KEY = os.environ.get("RESEND_API_KEY", "")
+RESEND_FROM = os.environ.get("RESEND_FROM", "Momentus Onboarding <onboarding@resend.dev>")
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(message)s")
 log = logging.getLogger("onboarding")
@@ -121,21 +127,48 @@ def format_answers_text(answers: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def send_email_sync(row_id: str, answers: Dict[str, Any]) -> bool:
-    """Blocking SMTP send. Call via threadpool or background task."""
-    if not (SMTP_HOST and SMTP_USER and SMTP_PASS):
-        log.warning("SMTP not configured — skipping email for %s", row_id)
+def send_via_resend(subject: str, text: str, html: str, reply_to: str, row_id: str) -> bool:
+    """Send via Resend HTTPS API. Works on Railway (SMTP outbound is blocked)."""
+    if not RESEND_API_KEY:
+        return False
+    body = {
+        "from": RESEND_FROM,
+        "to": [SMTP_TO],
+        "subject": subject,
+        "text": text,
+        "html": html,
+    }
+    if reply_to:
+        body["reply_to"] = reply_to
+    req = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=json.dumps(body).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {RESEND_API_KEY}",
+            "Content-Type": "application/json",
+        },
+        method="POST",
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=15) as resp:
+            raw = resp.read().decode("utf-8", "replace")
+            log.info("Resend OK for %s → %s: %s", row_id, SMTP_TO, raw[:200])
+            return True
+    except urllib.error.HTTPError as e:
+        body_txt = e.read().decode("utf-8", "replace") if hasattr(e, "read") else ""
+        log.error("Resend HTTP %s for %s: %s", e.code, row_id, body_txt[:300])
+        return False
+    except Exception as e:
+        log.error("Resend failed for %s: %s: %s", row_id, type(e).__name__, e)
         return False
 
+
+def send_email_sync(row_id: str, answers: Dict[str, Any]) -> bool:
+    """Send the onboarding email. Prefers Resend HTTPS; falls back to SMTP."""
     company = str(answers.get("company_name", "")).strip() or "Ismeretlen cég"
     subject = f"[Momentus Onboarding] {company}"
 
-    msg = EmailMessage()
-    msg["Subject"] = subject
-    msg["From"] = SMTP_FROM
-    msg["To"] = SMTP_TO
-    msg["Reply-To"] = str(answers.get("contact_email", "")) or SMTP_FROM
-
+    reply_to = str(answers.get("contact_email", "")) or ""
     text = (
         f"Új onboarding beérkezett.\n\n"
         f"ID: {row_id}\n"
@@ -150,6 +183,20 @@ def send_email_sync(row_id: str, answers: Dict[str, Any]) -> bool:
         f'</div>'
     )
 
+    if RESEND_API_KEY:
+        if send_via_resend(subject, text, html, reply_to, row_id):
+            return True
+        log.warning("Resend failed — falling back to SMTP for %s", row_id)
+
+    if not (SMTP_HOST and SMTP_USER and SMTP_PASS):
+        log.warning("No email transport configured — skipping email for %s", row_id)
+        return False
+
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = SMTP_FROM
+    msg["To"] = SMTP_TO
+    msg["Reply-To"] = reply_to or SMTP_FROM
     msg.set_content(text)
     msg.add_alternative(html, subtype="html")
 
@@ -204,7 +251,10 @@ app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="stat
 @app.on_event("startup")
 async def _startup():
     db_init()
-    log.info("Onboarding ready. DB=%s  SMTP=%s  TO=%s", DB_PATH, bool(SMTP_HOST), SMTP_TO)
+    log.info(
+        "Onboarding ready. DB=%s  RESEND=%s  SMTP=%s  TO=%s",
+        DB_PATH, bool(RESEND_API_KEY), bool(SMTP_HOST), SMTP_TO,
+    )
 
 
 @app.get("/")

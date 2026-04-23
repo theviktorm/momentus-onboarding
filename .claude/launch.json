@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "onboarding",
+      "runtimeExecutable": "/Users/viktormozsa/Claude/momentus-onboarding/.venv/bin/python",
+      "runtimeArgs": ["/Users/viktormozsa/Claude/momentus-onboarding/start.py"],
+      "port": 8100
+    }
+  ]
+}

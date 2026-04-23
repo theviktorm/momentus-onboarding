@@ -266,6 +266,8 @@ async def index():
 async def health():
     return {
         "status": "ok",
+        "resend_configured": bool(RESEND_API_KEY),
+        "resend_from": RESEND_FROM if RESEND_API_KEY else None,
         "smtp_configured": bool(SMTP_HOST and SMTP_USER and SMTP_PASS),
         "recipient": SMTP_TO,
     }
@@ -291,6 +293,17 @@ async def submit(request: Request, background: BackgroundTasks):
     background.add_task(send_email_and_mark, row_id, answers)
 
     return JSONResponse({"success": True, "data": {"submission_id": row_id, "queued": True}})
+
+
+@app.get("/api/test-email")
+async def test_email():
+    """Synchronous send so we can see the error inline."""
+    ok = await anyio.to_thread.run_sync(
+        send_email_sync,
+        "test-" + uuid.uuid4().hex[:6],
+        {"company_name": "TEST", "contact_email": SMTP_TO, "note": "Test from /api/test-email"},
+    )
+    return {"sent": ok, "resend_configured": bool(RESEND_API_KEY), "smtp_configured": bool(SMTP_HOST and SMTP_USER and SMTP_PASS)}
 
 
 @app.post("/api/resend/{row_id}")

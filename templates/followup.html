@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Momentus — AI keresési piaci részesedés · Indulási brief</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     MOMENTUS — ONBOARDING FOLLOW-UP
+     Quiet luxury. Navy × muted gold. Print-ready.
+     ───────────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --bg-deep: #EEEAE1;
+    --ink: #0B1220;
+    --ink-soft: #1A2338;
+    --ink-mute: #5C6378;
+    --ink-quiet: #9097A6;
+    --line: rgba(11, 18, 32, 0.08);
+    --line-strong: rgba(11, 18, 32, 0.18);
+    --card: #FFFFFF;
+    --gold: #A68A5B;
+    --gold-deep: #8B7447;
+    --gold-soft: rgba(166, 138, 91, 0.09);
+    --gold-line: rgba(166, 138, 91, 0.35);
+    --navy: #0F1C2E;
+    --navy-soft: rgba(15, 28, 46, 0.06);
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --serif: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+  }
+
+  html, body {
+    background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-weight: 400; font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+    line-height: 1.55;
+  }
+  ::selection { background: var(--gold-soft); color: var(--navy); }
+
+  .doc {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 80px 64px 120px;
+  }
+
+  /* ── Cover ── */
+  .cover {
+    min-height: 92vh;
+    display: flex; flex-direction: column; justify-content: space-between;
+    padding: 80px 64px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--line);
+    page-break-after: always;
+    break-after: page;
+  }
+  .cover-top { display: flex; align-items: center; justify-content: space-between; }
+  .brand {
+    font-family: var(--sans); font-size: 15px; font-weight: 600;
+    letter-spacing: -0.01em; color: var(--ink);
+  }
+  .brand::before {
+    content: ""; display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; background: var(--gold);
+    margin-right: 12px; vertical-align: middle;
+  }
+  .doc-meta {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; color: var(--ink-mute);
+  }
+  .cover-center { padding: 80px 0; max-width: 700px; }
+  .cover-kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.32em;
+    text-transform: uppercase; color: var(--gold-deep); margin-bottom: 32px;
+  }
+  .cover-title {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: clamp(40px, 5.6vw, 64px); line-height: 1.04;
+    letter-spacing: -0.02em; color: var(--navy);
+  }
+  .cover-title .accent {
+    font-style: italic; color: var(--gold-deep);
+  }
+  .cover-sub {
+    margin-top: 28px;
+    font-family: var(--sans); font-size: 17px; line-height: 1.5;
+    color: var(--ink-mute); max-width: 560px; font-weight: 400;
+  }
+  .cover-bottom {
+    display: grid; grid-template-columns: repeat(2, 1fr) 1fr;
+    gap: 32px;
+    border-top: 1px solid var(--line);
+    padding-top: 32px;
+  }
+  .cover-bottom .lbl {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink-quiet); margin-bottom: 8px;
+  }
+  .cover-bottom .val {
+    font-family: var(--sans); font-size: 14px; color: var(--ink); font-weight: 500;
+  }
+
+  /* ── Section ── */
+  section { padding: 56px 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: none; padding-top: 24px; }
+
+  .kicker {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--gold-deep); margin-bottom: 14px;
+    display: flex; align-items: center; gap: 14px;
+  }
+  .kicker .num {
+    font-family: var(--mono); color: var(--ink-quiet); font-size: 10.5px;
+    letter-spacing: 0.18em;
+  }
+  .kicker .num::after {
+    content: ""; display: inline-block; width: 28px; height: 1px;
+    background: var(--gold-line); margin: 0 0 4px 12px; vertical-align: middle;
+  }
+
+  h2 {
+    font-family: var(--serif); font-weight: 300;
+    font-size: clamp(28px, 3.2vw, 36px); line-height: 1.12;
+    letter-spacing: -0.015em; color: var(--navy);
+    margin-bottom: 22px; max-width: 640px;
+  }
+  h2 em { font-style: italic; color: var(--gold-deep); font-weight: 300; }
+  h3 {
+    font-family: var(--sans); font-weight: 600; font-size: 14px;
+    letter-spacing: 0.02em; color: var(--ink); margin: 24px 0 8px;
+    text-transform: none;
+  }
+  h3.minor {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink-mute); font-weight: 500;
+    margin: 24px 0 8px;
+  }
+  p { font-size: 15px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 14px; max-width: 680px; }
+  p.lead { font-size: 17px; color: var(--ink); line-height: 1.55; }
+  p.quiet { color: var(--ink-mute); font-size: 14px; }
+  ul, ol { padding-left: 0; list-style: none; margin: 12px 0; max-width: 680px; }
+  ul li, ol li {
+    position: relative; padding-left: 26px; margin-bottom: 8px;
+    font-size: 15px; line-height: 1.6; color: var(--ink-soft);
+  }
+  ul li::before {
+    content: ""; position: absolute; left: 0; top: 11px;
+    width: 12px; height: 1px; background: var(--gold);
+  }
+  ol { counter-reset: ol; }
+  ol li { counter-increment: ol; }
+  ol li::before {
+    content: counter(ol, decimal-leading-zero);
+    position: absolute; left: 0; top: 0;
+    font-family: var(--mono); font-size: 11px; color: var(--gold-deep);
+    letter-spacing: 0.05em;
+  }
+
+  strong { font-weight: 600; color: var(--ink); }
+  em { font-style: italic; }
+
+  /* ── Pull quote / callout ── */
+  .pull {
+    border-left: 2px solid var(--gold);
+    padding: 4px 0 4px 22px;
+    margin: 22px 0;
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: 19px; line-height: 1.45; color: var(--navy);
+    max-width: 660px;
+  }
+  .note {
+    background: var(--gold-soft);
+    border: 1px solid var(--gold-line);
+    border-radius: 2px;
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-size: 14px; line-height: 1.6; color: var(--ink-soft);
+    max-width: 680px;
+  }
+  .note .note-label {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.24em;
+    text-transform: uppercase; color: var(--gold-deep);
+    display: block; margin-bottom: 6px;
+  }
+
+  /* ── Data row (intake echo) ── */
+  .data-grid { display: grid; grid-template-columns: 180px 1fr; gap: 6px 28px; margin: 18px 0 28px; max-width: 680px; }
+  .data-grid dt {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink-quiet);
+    padding-top: 4px;
+  }
+  .data-grid dd { font-size: 14.5px; color: var(--ink); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+  .data-grid dt:not(:first-of-type) { border-top: 0; }
+
+  /* ── Phase cards ── */
+  .phases { display: grid; gap: 18px; margin: 24px 0; }
+  .phase {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 26px 28px;
+  }
+  .phase-num {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.24em;
+    color: var(--gold-deep); text-transform: uppercase; margin-bottom: 10px;
+  }
+  .phase-title {
+    font-family: var(--serif); font-weight: 300; font-size: 22px;
+    line-height: 1.2; color: var(--navy); margin-bottom: 10px;
+    letter-spacing: -0.01em;
+  }
+  .phase-title em { font-style: italic; color: var(--gold-deep); }
+  .phase p { font-size: 14.5px; color: var(--ink-soft); margin-bottom: 0; }
+
+  /* ── Week timeline ── */
+  .weeks { margin: 22px 0; }
+  .week {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 28px;
+    padding: 22px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .week:last-child { border-bottom: none; }
+  .week-tag {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em;
+    color: var(--gold-deep); text-transform: uppercase; padding-top: 4px;
+  }
+  .week-title {
+    font-family: var(--serif); font-weight: 300; font-style: italic;
+    font-size: 20px; line-height: 1.25; color: var(--navy);
+    margin-bottom: 10px; letter-spacing: -0.01em;
+  }
+  .week-meta { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 8px; }
+  .week-meta div {
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-mute);
+  }
+  .week-meta div span { color: var(--ink); font-weight: 500; }
+
+  /* ── Comparison block (Mi nem ez a projekt) ── */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin: 22px 0; }
+  .compare-col { padding: 24px 26px; border-radius: 4px; }
+  .compare-col.no {
+    background: transparent;
+    border: 1px solid var(--line);
+  }
+  .compare-col.yes {
+    background: var(--navy);
+    color: #EAE3D2;
+  }
+  .compare-col h4 {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.28em;
+    text-transform: uppercase; margin-bottom: 16px; font-weight: 500;
+  }
+  .compare-col.no h4 { color: var(--ink-quiet); }
+  .compare-col.yes h4 { color: var(--gold); }
+  .compare-col ul li { font-size: 14px; padding-left: 22px; }
+  .compare-col.no ul li { color: var(--ink-mute); }
+  .compare-col.no ul li::before { background: var(--ink-quiet); }
+  .compare-col.yes ul li { color: #EAE3D2; }
+  .compare-col.yes ul li::before { background: var(--gold); }
+
+  /* ── Checklist ── */
+  .checklist li {
+    padding-left: 32px; padding-top: 4px; padding-bottom: 4px;
+    margin-bottom: 10px;
+  }
+  .checklist li::before {
+    content: ""; width: 14px; height: 14px;
+    border: 1.5px solid var(--gold-line); border-radius: 2px;
+    background: transparent; top: 5px;
+  }
+
+  /* ── Footer / sign-off ── */
+  .signoff {
+    margin-top: 64px; padding-top: 36px;
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: end;
+  }
+  .signoff-mark {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    font-size: 22px; color: var(--navy); line-height: 1.3;
+  }
+  .signoff-meta {
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--ink-quiet); text-align: right;
+  }
+  .signoff-meta div { margin-top: 4px; }
+
+  /* ── Print ── */
+  @media print {
+    @page { size: A4; margin: 18mm 16mm; }
+    html, body { background: #fff; }
+    .doc { max-width: none; padding: 0; }
+    .cover { min-height: auto; padding: 24mm 0 18mm; page-break-after: always; }
+    section { padding: 28px 0; }
+    .phase, .note, .compare-col.yes { break-inside: avoid; }
+    .week { break-inside: avoid; }
+    .compare-col.yes { background: #0F1C2E !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .compare-col.yes * { color: #EAE3D2 !important; }
+    .compare-col.yes h4 { color: #A68A5B !important; }
+    h2, h3 { break-after: avoid; }
+  }
+
+  @media (max-width: 720px) {
+    .doc { padding: 48px 24px 80px; }
+    .cover { padding: 48px 24px; }
+    .cover-bottom { grid-template-columns: 1fr; gap: 18px; }
+    .data-grid { grid-template-columns: 1fr; gap: 4px; }
+    .data-grid dd { padding-bottom: 10px; margin-bottom: 6px; }
+    .compare { grid-template-columns: 1fr; }
+    .week { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ─────────── COVER ─────────── -->
+<div class="cover">
+  <div class="cover-top">
+    <div class="brand">Momentus</div>
+    <div class="doc-meta">Indulási brief · {{submission_date}}</div>
+  </div>
+
+  <div class="cover-center">
+    <div class="cover-kicker">{{company_name}} · AI keresési piaci részesedés</div>
+    <h1 class="cover-title">
+      A következő lépések <span class="accent">az AI&#8209;ajánlási pozíció</span> erősítéséhez.
+    </h1>
+    <p class="cover-sub">
+      Egy fókuszált sprint, ami azokat a kereskedelmi és szakmai csatatereket célozza, ahol a kereslet ma már a kattintás előtt eldől.
+    </p>
+  </div>
+
+  <div class="cover-bottom">
+    <div>
+      <div class="lbl">Kapcsolattartó</div>
+      <div class="val">{{contact_name}}</div>
+      <div class="val" style="font-weight:400;color:var(--ink-mute);font-size:13px;margin-top:2px">{{contact_email}}</div>
+    </div>
+    <div>
+      <div class="lbl">Napi kapcsolat</div>
+      <div class="val">{{daily_contact}}</div>
+      <div class="val" style="font-weight:400;color:var(--ink-mute);font-size:13px;margin-top:2px">Csatorna: {{comm_channel}}</div>
+    </div>
+    <div>
+      <div class="lbl">Onboarding ID</div>
+      <div class="val" style="font-family:var(--mono);font-size:12px">{{submission_id}}</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─────────── BODY ─────────── -->
+<main class="doc">
+
+  <!-- 02 — Executive summary -->
+  <section>
+    <div class="kicker"><span class="num">01</span> Vezetői összefoglaló</div>
+    <h2>Amit az onboarding alapján <em>egyértelműen látunk.</em></h2>
+
+    <p class="lead">
+      A {{company_name}} olyan piacon mozog, ahol a kereslet egy része nem a weboldalon dől el, hanem már azelőtt — abban a pillanatban, amikor egy AI&#8209;rendszer, kereső vagy ajánlási felület eldönti, kiket említ meg, kit hagy ki, és kinek a nevét teszi a shortlist élére.
+    </p>
+
+    <p>
+      Az onboarding válaszokból az látszik, hogy a {{priority_service_lines}} területen valós kereskedelmi tét van: ide érkezik a magas szándékú érdeklődés, és itt a legdrágább, ha a kereslet egy másik szereplőhöz csapódik le. {{priority_reason}}
+    </p>
+
+    <p>
+      Ez nem láthatósági kérdés a klasszikus értelemben. Nem több megjelenésre van szükség, hanem arra, hogy a megfelelő helyzetekben — a megfelelő kérdésekre, promptokra, ajánlási kontextusokra — a {{company_name}} legyen az egyik természetes válasz. A többi: levezetés.
+    </p>
+
+    <p>
+      A következő hetekben ennek a pozíciónak a felépítésén dolgozunk. Kontrolláltan, csomagolva, az Önök implementációs ritmusához igazítva. A cél nem az, hogy a csapatukat új feladatokkal terheljük; a cél az, hogy a nehéz részt mi vigyük, és Önöktől csak ott kérjünk inputot, ahol valódi szakmai vagy döntési tisztázásra van szükség.
+    </p>
+
+    <div class="pull">
+      Nem kampányt indítunk. Egy fókuszált piaci részesedés-szerző sprintet, ami pontosan ott mozdít, ahol a kereslet ma elfolyik.
+    </div>
+  </section>
+
+  <!-- 02 — Amit megértettünk -->
+  <section>
+    <div class="kicker"><span class="num">02</span> Amit az onboarding alapján megértettünk</div>
+    <h2>Az Önök <em>helyzete,</em> üzleti nyelven.</h2>
+
+    <dl class="data-grid">
+      <dt>Cég</dt><dd>{{company_name}}</dd>
+      <dt>Tevékenység</dt><dd>{{company_desc}}</dd>
+      <dt>Priorizált területek</dt><dd>{{priority_service_lines}}</dd>
+      <dt>Stratégiai indok</dt><dd>{{priority_reason}}</dd>
+    </dl>
+
+    <p>
+      Ahogy a válaszokból kirajzolódik, a {{company_name}} esetében nem egy hosszú mérlegelési ciklusról van szó, ahol az érdeklődő hetekig olvasgat. A kereslet egy része konkrét helyzetből indul, és az nyer, akit a döntéshozó gyorsan hitelesnek, elérhetőnek és relevánsnak érzékel — gyakran azelőtt, hogy egyetlen kattintás is történne.
+    </p>
+
+    <p>
+      Ezt a percet — amikor a shortlist megszületik — az AI&#8209;rendszerek, ajánlási felületek és keresési válaszok ma egyre inkább maguk formálják. A sprint célja, hogy ebben a pillanatban a {{company_name}} ne legyen kihagyható.
+    </p>
+  </section>
+
+  <!-- 03 — Stratégiai probléma -->
+  <section>
+    <div class="kicker"><span class="num">03</span> A stratégiai probléma</div>
+    <h2>A kereslet ma már <em>a kattintás előtt</em> formálódik.</h2>
+
+    <p class="lead">
+      A klasszikus láthatósági gondolkodás azt feltételezte, hogy az érdeklődő rákeres, átnézi a találatokat, és onnan választ. Ez ma csak részben igaz. Az AI&#8209;rendszerek, asszisztensek és kereső&#8209;összefoglalók sok esetben már a kattintás előtt eldöntik, kit említenek meg, kit nem, és kinek a neve hangzik el először.
+    </p>
+
+    <h3 class="minor">A háttérben három különálló nyomás dolgozik</h3>
+
+    <h3>Keresletvesztés</h3>
+    <p>
+      Ha egy releváns kérdésnél nem a {{company_name}} kerül a válaszba, hanem egy versenytárs, akkor a kereslet jelentős része már nem is jut el Önökhöz. Nem azért, mert kevésbé jók — hanem mert egy másik márkát ajánlott a rendszer.
+    </p>
+
+    <h3>Bizalmi hátrány</h3>
+    <p>
+      Ha a versenytárs tisztább, alátámasztottabb, ellenőrizhetőbb módon jelenik meg az AI&#8209;válaszokban, akkor a döntéshozó őt érzékeli megbízhatóbbnak — még mielőtt egyetlen oldalt is megnyitna. Ez nem stíluskérdés, hanem üzleti kockázat.
+    </p>
+
+    <h3>Fizetett hirdetési nyomás</h3>
+    <p>
+      Ha a kereslet egy része szervesen másfelé csapódik, a fennmaradó részt a fizetett csatornáknak — Google Ads, Meta Ads, egyéb performance — kell behozniuk. Ez idővel emeli a CPC-t, csökkenti a konverziót, és növeli a hirdetési költségvetésre nehezedő nyomást.
+    </p>
+
+    <div class="note">
+      <span class="note-label">A fizetett csatornákról</span>
+      A cél nem az, hogy a fizetett csatornákat egyik napról a másikra kiváltsuk. A cél az, hogy a vásárló vagy páciens már a kattintás előtt erősebb bizalmi jelzésekkel találkozzon, így a hirdetési és organikus csatornák ne egyedül cipeljék a teljes bizalomépítési terhet.
+    </div>
+  </section>
+
+  <!-- 04 — Versenytárs-kép -->
+  <section>
+    <div class="kicker"><span class="num">04</span> Versenytárs-referenciapontok</div>
+    <h2>Akiket <em>referenciának</em> használunk a feltérképezés során.</h2>
+
+    <p>
+      Az onboardingban megadott versenytársakat nem támadási felületként, hanem referenciapontként kezeljük. A kérdés nem az, hogy ők rosszul csinálnak-e valamit, hanem az, hogy hol és hogyan jelennek meg pontosan azokban az AI&#8209;ajánlási és keresési helyzetekben, ahol a {{company_name}} márkájának is helye kellene, hogy legyen.
+    </p>
+
+    <dl class="data-grid">
+      <dt>Megadott versenytársak</dt><dd>{{competitors}}</dd>
+    </dl>
+
+    <p class="quiet">
+      A referenciahalmazt a mapping fázisban tovább pontosítjuk — az AI&#8209;rendszerek által ténylegesen említett szereplők gyakran nem azonosak azokkal, akiket a piac ismer.
+    </p>
+  </section>
+
+  <!-- 05 — Operációs helyzet -->
+  <section>
+    <div class="kicker"><span class="num">05</span> Operációs helyzet</div>
+    <h2>Hogyan <em>illeszkedünk</em> az Önök rendszereihez.</h2>
+
+    <h3>Weboldal és CMS</h3>
+    <p>Jelenlegi platform: <strong>{{cms}}</strong>.</p>
+    <p>
+      Mivel a weboldal {{cms}} alapon működik, az első operációs prioritás az implementációs útvonal tisztázása. Nem abból indulunk ki, hogy bármit közvetlenül módosíthatunk; először azt rögzítjük, hogy ki, milyen folyamatban és milyen átfutással tudja élesíteni a jóváhagyott módosításokat.
+    </p>
+
+    <h3>Implementáció</h3>
+    <p>Felelős: <strong>{{implementer}}</strong>. Tipikus átfutás: <strong>{{implementation_sla}}</strong>.</p>
+    <p>
+      A javaslatokat nem szétszórt, napi szintű kérésekben adjuk át, hanem csomagolva, hogy illeszkedjenek a megadott {{implementation_sla}} ritmushoz. A legfontosabb operációs kockázat ritkán a stratégia — sokkal inkább az, hogy a jóváhagyott módosítások mennyire gyorsan jutnak el az élesítésig.
+    </p>
+
+    <h3>Compliance / szabályozottság</h3>
+    <p>Szabályozott piac: <strong>{{regulated_market}}</strong>.</p>
+    <p>
+      Mivel szabályozott területen mozognak, a sprint során nemcsak a meggyőzőbb pozicionálásra, hanem a biztonságos állításkezelésre is figyelünk. Nem cél kockázatos, túlzó vagy nem alátámasztott állításokat létrehozni. A cél az, hogy a meglévő szakmai bizalom, bizonyítékok és jogosultságok tisztábban, ellenőrizhetőbben és AI&#8209;rendszerek számára is értelmezhetőbben jelenjenek meg.
+    </p>
+
+    <h3>Kommunikációs ritmus</h3>
+    <p>Csatorna: <strong>{{comm_channel}}</strong> · Ütemezés: <strong>{{cadence}}</strong>.</p>
+    <p>
+      A részleteket írásos összefoglalókban visszük. A státuszhívás célja nem az, hogy hangosan felolvassunk egy riportot — az írásos anyag viszi a részleteket; a hívás a döntésekről, blokkolókról és a következő lépésekről szól.
+    </p>
+
+    <h3>Kapacitás és elérhetőség</h3>
+    <p>Alacsonyabb kapacitású időszakok: <strong>{{low_capacity}}</strong>.</p>
+    <p>
+      Ezeket a periódusokat figyelembe vesszük, és a jóváhagyási, implementációs vagy egyeztetési pontokat köréjük tervezzük, hogy a sprint ne akadjon el előre látható okok miatt.
+    </p>
+
+    <h3>Egyéb eszközök és környezet</h3>
+    <p>Aktív rendszerek: <strong>{{other_tools}}</strong>.</p>
+
+    <div class="note">
+      <span class="note-label">Bevonandó szereplők</span>
+      Az onboardingban jelzett további résztvevőket — {{stakeholder_to_introduce}} — érdemes már az elején bevonni, hogy a technikai, szakmai vagy jóváhagyási kérdések ne rossz csatornán keresztül lassuljanak le. {{final_notes}}
+    </div>
+  </section>
+
+  <!-- 06 — Első 72 óra -->
+  <section>
+    <div class="kicker"><span class="num">06</span> Az első 72 óra</div>
+    <h2>Mit csinál a Momentus <em>azonnal</em> az indulás után.</h2>
+
+    <ol>
+      <li>Az onboarding válaszok strukturált feldolgozása, a stratégiai prioritások véglegesítése.</li>
+      <li>A weboldal és a kulcsfontosságú szolgáltatási oldalak első, célzott áttekintése.</li>
+      <li>Az AI&#8209;keresési és ajánlási helyzet kiindulási feltérképezése: mely promptokon, kérdéseken és kontextusokban kellene megjelenniük.</li>
+      <li>A megadott versenytársak kezdeti vizsgálata az AI&#8209;ajánlási térben — kik tűnnek fel, milyen mintázattal.</li>
+      <li>Magas szándékú promptok és kérdéskörök összeállítása a {{priority_service_lines}} területre.</li>
+      <li>Implementációs és compliance akadályok azonosítása — mi az, amit gyorsan tudunk élesíteni, és mi igényel hosszabb átfutást.</li>
+      <li>Az első fókuszterület kijelölése — ahol a legnagyobb üzleti kockázat vagy lehetőség sűrűsödik.</li>
+    </ol>
+
+    <div class="pull">
+      Nem egy túlméretezett auditot készítünk. Az első cél, hogy megtaláljuk azt a pontot, ahol egyetlen mozdulattal a legtöbb piaci részesedést lehet visszafogni vagy megszerezni.
+    </div>
+  </section>
+
+  <!-- 07 — Sprint fázisok -->
+  <section>
+    <div class="kicker"><span class="num">07</span> A sprint három fázisa</div>
+    <h2>Hogyan <em>épül fel</em> a következő 4–5 hét.</h2>
+
+    <div class="phases">
+      <div class="phase">
+        <div class="phase-num">Fázis 01</div>
+        <div class="phase-title"><em>AI láthatósági diagnózis</em> és lehetőségtérkép</div>
+        <p>
+          Feltérképezzük, milyen kérdéseknél, promptoknál és keresési helyzetekben kellene megjelenniük a {{priority_service_lines}} területen. Megnézzük, kik jelennek meg helyettük, milyen mintázattal, és hol vannak konkrét bizalmi rések, amelyeken keresztül kereslet folyik el. A kimenet egy fókuszált döntési térkép, nem egy 80 oldalas audit.
+        </p>
+      </div>
+      <div class="phase">
+        <div class="phase-num">Fázis 02</div>
+        <div class="phase-title"><em>Szolgáltatási autoritás</em> megerősítése</div>
+        <p>
+          A kiválasztott területre tisztább, erősebb, bizonyítékokkal alátámasztott digitális jelzéseket építünk: a saját felületeken, a szolgáltatási oldalakon és azokon az adatpontokon, amelyeket az AI&#8209;rendszerek értelmezni képesek. Itt az a kérdés, hogy egy kívülálló — gép vagy ember — egyértelműen meg tudja-e mondani, miért Önökhöz érdemes fordulni.
+        </p>
+      </div>
+      <div class="phase">
+        <div class="phase-num">Fázis 03</div>
+        <div class="phase-title"><em>Külső bizalmi és hivatkozási réteg</em> erősítése</div>
+        <p>
+          Az AI&#8209;rendszerek nemcsak azt figyelik, mit mond magáról a márka, hanem azt is, milyen külső jelek támasztják alá. Itt arra dolgozunk, hogy a {{company_name}}-ról szóló külső megemlítések, hivatkozások és adatpontok következetesek és ellenőrizhetők legyenek — ez az a réteg, amit a versenytárs a leglassabban tud utolérni.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 — Heti menet -->
+  <section>
+    <div class="kicker"><span class="num">08</span> Várható menet</div>
+    <h2>A 4–5 hetes <em>ütemterv</em> hétről hétre.</h2>
+
+    <div class="weeks">
+      <div class="week">
+        <div class="week-tag">1. hét</div>
+        <div>
+          <div class="week-title">Intake, mapping, fókuszterület kiválasztása</div>
+          <p class="quiet">Onboarding finomhangolás, AI láthatósági kiindulási mérés, versenytárs-mapping, az első sprint-fókusz közös kijelölése.</p>
+          <div class="week-meta">
+            <div>Bevonás: <span>~60 perc</span></div>
+            <div>Döntés: <span>fókuszterület megerősítése</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="week-tag">2. hét</div>
+        <div>
+          <div class="week-title">Autoritási terv és eszközök kijelölése</div>
+          <p class="quiet">A {{priority_service_lines}} területre szóló autoritási csomag összeállítása: mely oldalak, állítások, bizonyítékok, struktúrák kerülnek megerősítésre.</p>
+          <div class="week-meta">
+            <div>Bevonás: <span>~45 perc + szakmai input</span></div>
+            <div>Döntés: <span>állítások és proof assetek jóváhagyása</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="week-tag">3. hét</div>
+        <div>
+          <div class="week-title">Implementációs előkészítés és átalakítások</div>
+          <p class="quiet">A jóváhagyott módosítások csomagolt átadása {{implementer}} felé, az {{implementation_sla}} ritmushoz igazítva. Compliance ellenőrzés, ahol releváns.</p>
+          <div class="week-meta">
+            <div>Bevonás: <span>implementációs szinkron</span></div>
+            <div>Döntés: <span>élesítési sorrend</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="week-tag">4. hét</div>
+        <div>
+          <div class="week-title">Külső bizalmi réteg és megerősítés</div>
+          <p class="quiet">A márka körüli külső jelek, hivatkozások és adatpontok rendezése, ellenőrizhetőségük megerősítése — az a réteg, amit a versenytárs a leglassabban másol.</p>
+          <div class="week-meta">
+            <div>Bevonás: <span>minimal</span></div>
+            <div>Döntés: <span>kommunikációs irány finomítás</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week">
+        <div class="week-tag">5. hét</div>
+        <div>
+          <div class="week-title">Láthatósági brief és következő döntés</div>
+          <p class="quiet">Mérési pontok újrafutása, az elmozdulás értékelése, a következő piaci részesedés-szerző lépés meghatározása.</p>
+          <div class="week-meta">
+            <div>Bevonás: <span>~60 perc döntéshívás</span></div>
+            <div>Döntés: <span>következő sprint iránya</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 09 — Mit kérünk most -->
+  <section>
+    <div class="kicker"><span class="num">09</span> Mit kérünk Önöktől most</div>
+    <h2>Egy <em>rövid checklista,</em> hogy gyorsan tudjunk indulni.</h2>
+
+    <ul class="checklist">
+      <li>Fő kapcsolattartó megerősítése: <strong>{{daily_contact}}</strong> — ő az, akivel a napi szintű egyeztetéseket futtatjuk.</li>
+      <li>Implementációs felelős megerősítése: <strong>{{implementer}}</strong> — ő az, aki a jóváhagyott módosításokat élesíteni tudja.</li>
+      <li>Hozzáférési vagy átadási útvonal tisztázása a {{cms}} platformhoz, illetve a kapcsolódó analitikai felületekhez.</li>
+      <li>Priorizált szolgáltatási területek pontosítása, ha az onboarding óta változott: <strong>{{priority_service_lines}}</strong>.</li>
+      <li>Releváns bizonyítékok és trust assetek elküldése — eredmények, esettanulmányok, tanúsítványok, szakmai referenciák.</li>
+      <li>Compliance jóváhagyási folyamat tisztázása, ha szabályozott állításokról lesz szó.</li>
+      <li>Versenytárslista pontosítása az első mapping eredménye alapján.</li>
+      <li>E-mailes bemutatás a bevonandó szereplő(k) felé: <strong>{{stakeholder_to_introduce}}</strong>.</li>
+    </ul>
+
+    <p class="quiet">
+      Bármit, ami most nem áll rendelkezésre, az első egyeztetés során pontosítjuk — a sprint nem áll meg a hiányzó adatoknál.
+    </p>
+  </section>
+
+  <!-- 10 — Kommunikáció -->
+  <section>
+    <div class="kicker"><span class="num">10</span> Kommunikációs ritmus</div>
+    <h2>Hogyan <em>tartjuk a kapcsolatot</em> a sprint alatt.</h2>
+
+    <dl class="data-grid">
+      <dt>Elsődleges csatorna</dt><dd>{{comm_channel}}</dd>
+      <dt>Ütemezés</dt><dd>{{cadence}}</dd>
+      <dt>Írásos riport</dt><dd>Hetente egy összefoglaló — döntések, eredmények, blokkolók, következő lépés.</dd>
+      <dt>Státuszhívás</dt><dd>Csak döntésekről, blokkolókról és a következő lépésről. A részleteket a riport viszi.</dd>
+    </dl>
+
+    <p>
+      A státuszhívás célja nem az, hogy hangosan felolvassunk egy riportot. Az írásos összefoglaló viszi a részleteket; a hívás a döntésekről, blokkolókról és a következő lépésekről szól.
+    </p>
+  </section>
+
+  <!-- 11 — Mit jelent a siker -->
+  <section>
+    <div class="kicker"><span class="num">11</span> Mit jelent a siker</div>
+    <h2>Mire <em>figyelünk,</em> hogy tudjuk, működik.</h2>
+
+    <p>
+      Nem garantálunk pozíciókat. Az AI&#8209;ajánlási tér ehhez túl sok szereplő, túl sok rendszer és túl sok időtáv együttese. Amit garantálunk: fókuszt, kontrollt és világos következő lépést.
+    </p>
+
+    <h3 class="minor">A siker jelei</h3>
+    <ul>
+      <li>Erősebb jelenlét magas szándékú AI&#8209;ajánlási és keresési helyzetekben.</li>
+      <li>Tisztább márka- és szolgáltatásértelmezés a gépi rendszerek szemszögéből.</li>
+      <li>Jobb Top 3 jelenléti esély a releváns AI&#8209;válaszokban.</li>
+      <li>Erősebb szakértői, céges és szolgáltatási bizalmi jelek.</li>
+      <li>Gyengébb versenytársi dominancia bizonyos ajánlási helyzetekben.</li>
+      <li>Világosabb döntési alap a következő piaci részesedés-szerző lépéshez.</li>
+    </ul>
+
+    <div class="note">
+      <span class="note-label">Realista keret</span>
+      Nem minden AI&#8209;rendszer mozog ugyanabban a tempóban, és nem minden változás jelenik meg azonnal. A cél az, hogy a megfelelő kereskedelmi vagy szakmai csatatéren hozzunk létre mérhető elmozdulást, majd ennek alapján döntsünk a következő lépésről.
+    </div>
+  </section>
+
+  <!-- 12 — Mi nem ez a projekt -->
+  <section>
+    <div class="kicker"><span class="num">12</span> Mi nem ez a projekt</div>
+    <h2>Hogy ne legyen <em>félreértés.</em></h2>
+
+    <div class="compare">
+      <div class="compare-col no">
+        <h4>Ez nem</h4>
+        <ul>
+          <li>Hagyományos SEO-retainer.</li>
+          <li>Tartalomnaptár, amit hetente kell tölteni.</li>
+          <li>Technikai audit, amit aztán senki nem használ.</li>
+          <li>Általános márkaépítés vagy „online jelenlét növelés”.</li>
+          <li>Olyan projekt, ahol az ügyfélnek kell mindent menedzselnie.</li>
+        </ul>
+      </div>
+      <div class="compare-col yes">
+        <h4>Ez egy</h4>
+        <ul>
+          <li>Fókuszált AI keresési piaci részesedés-szerző sprint.</li>
+          <li>Konkrét kereskedelmi területre szabott munka.</li>
+          <li>Csomagolt javaslatok, kontrollált implementációs ritmussal.</li>
+          <li>Üzleti döntésekre vetített eredmények, nem riportok riportokért.</li>
+          <li>Olyan együttműködés, ahol mi visszük a nehéz részt.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 13 — Záró -->
+  <section>
+    <div class="kicker"><span class="num">13</span> Záró gondolat</div>
+    <h2>A nehéz munkát <em>mi visszük.</em></h2>
+
+    <p class="lead">
+      Az Önök inputja ott kell, ahol valódi szakmai vagy döntési tisztázásra van szükség — máshol nem terheljük a csapatot. A cél egyetlen mondatban: a {{company_name}} ne legyen könnyen kihagyható azokból az AI&#8209;ajánlási helyzetekből, ahol üzletileg számít.
+    </p>
+
+    <p>
+      Ha a következő hetekben kérdés merül fel — szakmai, technikai vagy stratégiai —, {{daily_contact}} a fő kontakt, és {{comm_channel}}-en a leggyorsabban elérnek minket. A részleteket írásban visszük, a hívások a döntésekről szólnak.
+    </p>
+
+    <div class="signoff">
+      <div class="signoff-mark">
+        Köszönjük a bizalmat — <br/>
+        <em>induljunk.</em>
+      </div>
+      <div class="signoff-meta">
+        <div>{{sender_name}}</div>
+        <div>Momentus</div>
+        <div style="margin-top:10px;color:var(--ink-mute)">{{submission_date}}</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+</body>
+</html>

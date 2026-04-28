@@ -1,0 +1,22 @@
+Tárgy: {{company_name}} onboarding — következő lépések
+
+Kedves {{contact_name}},
+
+köszönjük a kitöltött onboardingot. Átnéztük a válaszokat, és csatoltan küldjük a részletes indulási briefet — ez foglalja össze, hogyan látjuk a {{company_name}} helyzetét, és mi történik a következő hetekben.
+
+Egy mondatban a legfontosabb felismerés: a {{priority_service_lines}} területen a kereslet egy része ma már a kattintás előtt eldől, abban a pillanatban, amikor egy AI-rendszer vagy ajánlási felület megnevezi (vagy kihagyja) a {{company_name}}-t. A sprint pontosan ennek a pillanatnak a megnyerésére fókuszál — nem általános láthatóságra.
+
+Ahhoz, hogy gyorsan tudjunk indulni, az alábbiakra van szükségünk Önöktől:
+
+1. Megerősítés, hogy {{daily_contact}} a fő napi kontakt, és {{comm_channel}} az elsődleges csatorna.
+2. Implementációs felelős megerősítése ({{implementer}}) — ki tudja élesíteni a jóváhagyott módosításokat.
+3. Hozzáférési útvonal a {{cms}} platformhoz és a kapcsolódó analitikai felületekhez.
+4. Releváns bizonyítékok, eredmények, esettanulmányok, tanúsítványok — ami a szakmai bizalmat alátámasztja.
+5. Ha van bevonandó további szereplő ({{stakeholder_to_introduce}}), egy rövid e-mailes bemutatás.
+6. Compliance jóváhagyási folyamat tisztázása, ha szabályozott állításokról lesz szó.
+
+A részletes brief a csatolmányban. Ha bármi nem áll most rendelkezésre, az első egyeztetésen pontosítjuk — a sprint nem áll meg ezen.
+
+Üdvözlettel,
+{{sender_name}}
+Momentus

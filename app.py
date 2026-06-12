@@ -264,6 +264,11 @@ async def index():
     return FileResponse(BASE_DIR / "templates" / "index.html", media_type="text/html")
 
 
+@app.get("/en")
+async def index_en():
+    return FileResponse(BASE_DIR / "templates" / "index_en.html", media_type="text/html")
+
+
 @app.get("/api/health")
 async def health():
     return {

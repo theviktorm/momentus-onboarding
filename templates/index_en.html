@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Client Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300;1,9..144,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     MOMENTUS — CLIENT ONBOARDING
+     Quiet luxury. Navy × muted gold. Minimal, editorial.
+     ───────────────────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F7F5F0;
+    --bg-deep: #EEEAE1;
+    --ink: #0B1220;
+    --ink-soft: #1A2338;
+    --ink-mute: #5C6378;
+    --ink-quiet: #9097A6;
+    --line: rgba(11, 18, 32, 0.08);
+    --line-strong: rgba(11, 18, 32, 0.18);
+    --card: #FFFFFF;
+    --gold: #A68A5B;
+    --gold-deep: #8B7447;
+    --gold-soft: rgba(166, 138, 91, 0.09);
+    --gold-line: rgba(166, 138, 91, 0.35);
+    --navy: #0F1C2E;
+    --navy-soft: rgba(15, 28, 46, 0.06);
+    --focus: rgba(166, 138, 91, 0.4);
+    --ok: #2D6A4F;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --serif: 'Fraunces', Georgia, serif;
+    --mono: 'JetBrains Mono', ui-monospace, monospace;
+    --shadow-soft: 0 1px 2px rgba(11,18,32,.04), 0 14px 40px -16px rgba(11,18,32,.12);
+    --shadow-lift: 0 1px 2px rgba(11,18,32,.05), 0 24px 60px -20px rgba(11,18,32,.18);
+  }
+
+  html, body {
+    height: 100%; background: var(--bg); color: var(--ink);
+    font-family: var(--sans); font-weight: 400; font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  body { display: flex; flex-direction: column; overflow: hidden; }
+
+  ::selection { background: var(--gold-soft); color: var(--navy); }
+
+  /* ── Top bar ── */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 36px; background: rgba(247, 245, 240, 0.85);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--line); z-index: 10;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; }
+  .brand-logo { height: 26px; width: auto; display: block; }
+  .brand-mark { font-family: var(--sans); font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink); }
+  .brand-sub {
+    font-family: var(--mono); font-size: 10.5px; color: var(--ink-mute);
+    text-transform: uppercase; letter-spacing: 0.18em;
+    padding-left: 14px; border-left: 1px solid var(--line);
+  }
+  .step-pill {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-mute);
+    letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 4px 10px; border: 1px solid var(--line); border-radius: 999px;
+    background: rgba(255,255,255,0.5);
+  }
+
+  /* ── Progress ── */
+  .progress { height: 2px; background: var(--line); position: relative; overflow: hidden; }
+  .progress-bar {
+    position: absolute; left: 0; top: 0; height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-deep) 100%);
+    transition: width 520ms cubic-bezier(.2,.8,.2,1);
+  }
+  .progress-bar::after {
+    content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 60px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,.7), transparent);
+    animation: shimmer 2.4s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    0% { transform: translateX(-60px); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateX(0); opacity: 0; }
+  }
+
+  /* ── Stage ── */
+  .stage { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; position: relative; }
+  .card-wrap { min-height: 100%; display: flex; align-items: center; justify-content: center; padding: 64px 28px 100px; }
+  .card {
+    width: 100%; max-width: 720px;
+    opacity: 1; transform: translateY(0);
+    transition: opacity 340ms cubic-bezier(.2,.8,.2,1), transform 340ms cubic-bezier(.2,.8,.2,1);
+  }
+  .card.enter { opacity: 0; transform: translateY(16px); }
+  .card.exit { opacity: 0; transform: translateY(-10px); }
+
+  /* ── Section chapter overlay ── */
+  .chapter {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+    pointer-events: none; opacity: 0; z-index: 5;
+    background: rgba(247, 245, 240, 0.86); backdrop-filter: blur(6px);
+    transition: opacity 360ms ease;
+  }
+  .chapter.on { opacity: 1; }
+  .chapter-body { text-align: center; transform: translateY(8px); opacity: 0; transition: all 520ms cubic-bezier(.2,.8,.2,1); }
+  .chapter.on .chapter-body { transform: translateY(0); opacity: 1; }
+  .chapter-kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--gold-deep); margin-bottom: 18px;
+  }
+  .chapter-title {
+    font-family: var(--serif); font-weight: 300; font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.08; letter-spacing: -0.02em; color: var(--navy); max-width: 640px;
+  }
+  .chapter-emoji { font-size: 28px; display: block; margin-bottom: 22px; }
+
+  /* ── Section tag ── */
+  .section-tag {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--ink-mute); margin-bottom: 22px;
+  }
+  .section-tag::before { content: ""; width: 22px; height: 1px; background: var(--gold); display: inline-block; }
+  .section-emoji { font-size: 14px; opacity: 0.9; }
+
+  /* ── Question ── */
+  .q-number { font-family: var(--mono); font-size: 11px; color: var(--gold-deep); letter-spacing: 0.1em; margin-bottom: 14px; }
+  .q-title {
+    font-family: var(--sans); font-weight: 500; font-size: clamp(28px, 3.6vw, 40px);
+    line-height: 1.18; letter-spacing: -0.025em; color: var(--ink); margin-bottom: 14px;
+  }
+  .q-title em {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    color: var(--gold-deep); letter-spacing: -0.01em;
+  }
+  .q-help { font-size: 15px; color: var(--ink-mute); line-height: 1.6; max-width: 580px; margin-bottom: 36px; font-weight: 400; }
+  .q-help strong { color: var(--ink-soft); font-weight: 600; }
+
+  /* ── Inputs ── */
+  .field { width: 100%; position: relative; }
+  input[type=text], input[type=email], input[type=url], textarea, select {
+    width: 100%; font-family: var(--sans); font-size: 19px; font-weight: 400;
+    color: var(--ink); background: transparent;
+    border: none; border-bottom: 1px solid var(--line-strong); padding: 14px 2px; outline: none;
+    transition: border-color 220ms ease;
+  }
+  input::placeholder, textarea::placeholder { color: var(--ink-quiet); font-weight: 300; }
+  input:focus, textarea:focus, select:focus { border-bottom-color: var(--gold); }
+
+  /* Animated gold underline on focus */
+  .field::after {
+    content: ""; position: absolute; left: 0; bottom: 0; height: 2px; width: 0;
+    background: var(--gold); transition: width 420ms cubic-bezier(.2,.8,.2,1);
+  }
+  .field.focused::after { width: 100%; }
+  textarea { min-height: 110px; resize: vertical; line-height: 1.55; }
+  select {
+    appearance: none; padding-right: 28px; cursor: pointer;
+    background-image: linear-gradient(45deg, transparent 50%, var(--ink-mute) 50%), linear-gradient(135deg, var(--ink-mute) 50%, transparent 50%);
+    background-position: calc(100% - 14px) 22px, calc(100% - 8px) 22px;
+    background-size: 6px 6px, 6px 6px; background-repeat: no-repeat;
+  }
+
+  /* ── Choices ── */
+  .choices { display: flex; flex-direction: column; gap: 10px; }
+  .choice {
+    display: flex; align-items: center; gap: 16px; padding: 18px 20px;
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    cursor: pointer; transition: all 220ms cubic-bezier(.2,.8,.2,1);
+    position: relative;
+  }
+  .choice:hover {
+    border-color: var(--gold-line); transform: translateY(-1px);
+    box-shadow: var(--shadow-soft);
+  }
+  .choice input { position: absolute; opacity: 0; pointer-events: none; }
+  .choice-key {
+    width: 30px; height: 30px; border: 1px solid var(--line-strong); border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: var(--mono); font-size: 12px; color: var(--ink-mute);
+    background: var(--bg-deep); flex-shrink: 0;
+    transition: all 220ms ease;
+  }
+  .choice-label { font-size: 16px; color: var(--ink); line-height: 1.4; font-weight: 400; }
+  .choice.selected {
+    border-color: var(--gold); background: var(--gold-soft);
+    box-shadow: 0 0 0 4px rgba(166, 138, 91, 0.06);
+  }
+  .choice.selected .choice-key { background: var(--gold); color: #fff; border-color: var(--gold); }
+
+  .file-drop {
+    border: 1.5px dashed var(--line-strong); border-radius: 12px; padding: 30px;
+    text-align: center; color: var(--ink-mute); cursor: pointer;
+    transition: all 220ms ease;
+  }
+  .file-drop:hover { border-color: var(--gold); color: var(--gold-deep); background: var(--gold-soft); }
+  .file-name { margin-top: 12px; font-family: var(--mono); font-size: 13px; color: var(--ok); }
+
+  /* ── Buttons ── */
+  .actions { margin-top: 38px; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--sans); font-size: 14.5px; font-weight: 500;
+    padding: 14px 22px; border-radius: 999px; border: 1px solid transparent;
+    cursor: pointer; transition: all 220ms cubic-bezier(.2,.8,.2,1);
+    letter-spacing: -0.005em;
+  }
+  .btn-primary {
+    background: var(--navy); color: #fff; display: inline-flex; align-items: center; gap: 10px;
+    box-shadow: 0 1px 2px rgba(11,18,32,.08), 0 10px 24px -10px rgba(11,18,32,.25);
+  }
+  .btn-primary:hover {
+    background: var(--ink); transform: translateY(-1px);
+    box-shadow: 0 1px 2px rgba(11,18,32,.1), 0 18px 40px -14px rgba(11,18,32,.35);
+  }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+  .btn-primary .arrow { transition: transform 220ms ease; display: inline-block; }
+  .btn-primary:hover .arrow { transform: translateX(3px); }
+  .btn-ghost { background: transparent; color: var(--ink-mute); }
+  .btn-ghost:hover { color: var(--ink); background: var(--navy-soft); }
+  .kbd {
+    font-family: var(--mono); font-size: 11px; color: var(--ink-quiet);
+    padding: 2px 7px; border-radius: 5px; background: var(--bg-deep);
+    border: 1px solid var(--line);
+  }
+  .hint { font-size: 13px; color: var(--ink-quiet); display: inline-flex; align-items: center; gap: 6px; }
+
+  /* ── Splash (welcome / submit / thanks) ── */
+  .splash { text-align: left; max-width: 680px; }
+  .splash-logo { height: 38px; width: auto; margin-bottom: 40px; display: block; opacity: 0.95; }
+  .kicker {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--gold-deep); margin-bottom: 28px;
+    display: inline-flex; align-items: center; gap: 10px;
+  }
+  .kicker::before { content: ""; width: 22px; height: 1px; background: var(--gold); }
+  .splash h1 {
+    font-family: var(--sans); font-weight: 500;
+    font-size: clamp(40px, 5.6vw, 64px); line-height: 1.04; letter-spacing: -0.035em;
+    color: var(--navy); margin-bottom: 24px;
+  }
+  .splash h1 em {
+    font-family: var(--serif); font-style: italic; font-weight: 300;
+    color: var(--gold-deep); letter-spacing: -0.02em;
+  }
+  .splash p { font-size: 17px; color: var(--ink-mute); line-height: 1.65; margin-bottom: 14px; max-width: 600px; }
+  .splash p strong { color: var(--ink); font-weight: 500; }
+  .meta {
+    display: flex; gap: 28px; margin-top: 40px; flex-wrap: wrap;
+    font-family: var(--mono); font-size: 11px; color: var(--ink-mute);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .meta span strong { color: var(--navy); font-weight: 600; }
+
+  /* ── Notice ── */
+  .notice {
+    background: var(--gold-soft); border-left: 2px solid var(--gold); padding: 18px 20px;
+    border-radius: 6px; margin-bottom: 30px; font-size: 14.5px;
+    line-height: 1.65; color: var(--ink-soft);
+  }
+  .notice strong { color: var(--navy); font-weight: 600; }
+
+  /* ── Sparkles on thanks ── */
+  .sparkles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .sparkle {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--gold); opacity: 0;
+    animation: float 3.5s ease-in-out infinite;
+  }
+  @keyframes float {
+    0% { opacity: 0; transform: translate(0, 0) scale(0.5); }
+    15% { opacity: 0.9; }
+    100% { opacity: 0; transform: translate(var(--dx), var(--dy)) scale(1.4); }
+  }
+
+  /* ── Error ── */
+  .error { color: #B94518; font-size: 13px; margin-top: 12px; font-family: var(--mono); letter-spacing: 0.01em; }
+
+  /* ── Small screens ── */
+  @media (max-width: 640px) {
+    .topbar { padding: 14px 20px; }
+    .brand-sub { display: none; }
+    .card-wrap { padding: 40px 22px 72px; }
+    .q-title { font-size: 24px; }
+    .splash h1 { font-size: 36px; }
+    .choice-label { font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <img src="/static/logo.png" alt="" class="brand-logo" onerror="this.style.display='none';document.getElementById('brandTextFallback').style.display='inline';" />
+    <span class="brand-mark" id="brandTextFallback">Onboarding</span>
+    <span class="brand-sub">Client Onboarding</span>
+  </div>
+  <div class="step-pill" id="stepPill">01</div>
+</div>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+<div class="stage" id="stage">
+  <div class="chapter" id="chapter">
+    <div class="chapter-body">
+      <span class="chapter-emoji" id="chapterEmoji"></span>
+      <div class="chapter-kicker" id="chapterKicker"></div>
+      <div class="chapter-title" id="chapterTitle"></div>
+    </div>
+  </div>
+  <div class="card-wrap"><div class="card" id="card"></div></div>
+  <div class="sparkles" id="sparkles"></div>
+</div>
+
+<script>
+/* ─────────────────────────────────────────────────────────────
+   FORM SPEC
+   ───────────────────────────────────────────────────────────── */
+const SECTIONS = [
+  { id: "s1", emoji: "\uD83D\uDC4B", title: "Who you are, who we work with" },
+  { id: "s2", emoji: "\uD83C\uDFAF", title: "What you actually want to win" },
+  { id: "s3", emoji: "\uD83D\uDD0E", title: "Your competitive landscape" },
+  { id: "s4", emoji: "\uD83D\uDEE0\uFE0F", title: "The technical reality" },
+  { id: "s5", emoji: "\uD83D\uDD10", title: "Access — over a secure channel" },
+  { id: "s6", emoji: "\u2728", title: "Boundaries and brand rails" },
+  { id: "s7", emoji: "\uD83D\uDCAC", title: "How we work together" },
+  { id: "s8", emoji: "\uD83C\uDF1F", title: "One last thought" },
+];
+
+// Display-ready titles (with proper Hungarian diacritics via Unicode escapes to keep JS parser safe)
+const SECTION_DISPLAY = {
+  "s1": { emoji: "\uD83D\uDC4B", title: "Ki vagy, \u00e9s kivel dolgozunk?" },
+  "s2": { emoji: "\uD83C\uDFAF", title: "A f\u0151f\u00f3kuszban l\u00e9v\u0151 pontok" },
+  "s3": { emoji: "\uD83D\uDD0E", title: "Versenyk\u00f6rnyezet" },
+  "s4": { emoji: "\uD83D\uDEE0\uFE0F", title: "A technikai val\u00f3s\u00e1g" },
+  "s5": { emoji: "\uD83D\uDD10", title: "Hozz\u00e1f\u00e9r\u00e9s \u2014 biztons\u00e1gos csatorn\u00e1n" },
+  "s6": { emoji: "\u2728", title: "Amit szabad, \u00e9s amit nem" },
+  "s7": { emoji: "\uD83D\uDCAC", title: "Hogyan dolgozunk egy\u00fctt" },
+  "s8": { emoji: "\uD83C\uDF1F", title: "Egy utols\u00f3 gondolat" },
+};
+
+// All user-facing strings use \uXXXX escapes for Hungarian diacritics to guarantee
+// the JS parser never trips over stray quotes or encoding oddities.
+const H = {
+  // Welcome
+  welcome_kicker: "Client Onboarding",
+  welcome_h1: 'Welcome. <em>Let\'s get started.</em>',
+  welcome_p1: "The next few minutes give our team a precise picture of your business, your goals, and the focus areas we'll work on together in the coming months.",
+  welcome_p2: "Every answer feeds directly into the strategic brief we build before kickoff.",
+  welcome_btn: "Begin",
+  welcome_meta1: "~5 minutes",
+  welcome_meta2: "18 questions",
+  welcome_meta3: "Autosaved",
+
+  // Submit
+  submit_kicker: "Last step",
+  submit_h1: 'All set — <em>shall we send it?</em>',
+  submit_p1: "We've checked — every required answer is in. Once you submit, our team gets back to you within 2 business days.",
+  submit_btn: "Submit",
+  submit_back: "Back",
+
+  // Thanks
+  thanks_kicker: "Thank you",
+  thanks_h1: 'From here, <em>we take over.</em>',
+  thanks_p1: "Your answers go straight to our strategy team. Over the next 2 business days we'll prepare the internal kickoff brief, send a calendar invite for the strategic kickoff workshop, and share a secure link for handing over access credentials.",
+  thanks_p2: "Until then — you're in good hands.",
+  thanks_sig: "— Your project team",
+};
+const STEPS = [
+  { type: "welcome" },
+
+  // S1
+  { section: "s1", id: "company_name",   type: "text",       required: true,
+    q: "Let's start at the <em>very beginning</em>. What's the name of your business?",
+    help: "This goes into every internal doc and channel we create for you." },
+  { section: "s1", id: "contact_name",   type: "text",       required: true,
+    q: "What's your name, and what's your <em>role</em>?",
+    help: "Name + title — we need to know who the primary decision-maker is on your side.",
+    placeholder: "e.g. Anna Smith, Head of Marketing" },
+  { section: "s1", id: "contact_email",  type: "email",      required: true,
+    q: "Where should we send reports and invites?",
+    help: "Primary contact email." },
+  { section: "s1", id: "daily_contact",  type: "choice",     required: true,
+    q: "Who will be the <em>day-to-day contact</em> with our team?",
+    options: ["Myself", "Another colleague", "External partner / agency"] },
+  { section: "s1", id: "daily_contact_info", type: "long",   required: false,
+    q: "Give us their name, role and email.",
+    help: "A well-defined point of contact = faster iteration.",
+    when: function(a){ return a.daily_contact && a.daily_contact !== "Myself"; } },
+
+  // S2
+  { section: "s2", id: "company_desc",   type: "long",       required: true,
+    q: "Briefly: <em>what do you do, and who for?</em>",
+    help: "The single most important thing(s) you want people to know about you — in 1\u20132 sentences." },
+  { section: "s2", id: "priority_reason", type: "long",      required: true,
+    q: "What are the <em>top focus areas</em> you want to win in, and why these specifically?",
+    help: "Margin, new market segment, capacity, seasonality, a launch — the business context matters more than search volume. Whether you sell courses, run a clinic, ship software, or anything else, tell us what actually moves the needle for you." },
+
+  // S3
+  { section: "s3", id: "competitors",    type: "long",       required: true,
+    q: "Who are your <em>3\u20135 most important competitors</em> in those focus areas?",
+    help: "Format: name + website, one per line.",
+    placeholder: "Competitor A \u2014 competitora.com" },
+
+  // S4
+  { section: "s4", id: "cms",            type: "select",     required: true,
+    q: "What <em>platform</em> is your website on?",
+    help: "This determines whether we can implement structural and content changes ourselves, or whether everything has to go through your team.",
+    options: ["WordPress", "Webflow", "Shopify", "Squarespace", "Wix", "Drupal", "Headless (Next.js, Astro, etc.)", "Custom-built", "I don\u2019t know", "Other"] },
+  { section: "s4", id: "implementer",    type: "choice",     required: true,
+    q: "Who will <em>implement</em> our recommendations on the website?",
+    help: "Fast implementation is the single biggest factor in how quickly results show up. Let\u2019s be honest about the reality.",
+    options: [
+      "Our in-house developer / marketer",
+      "External developer / agency",
+      "We\u2019ll give you direct access to implement",
+      "Not decided yet"
+    ] },
+  { section: "s4", id: "implementation_sla", type: "choice", required: true,
+    q: "Roughly, what\u2019s the <em>turnaround</em> for getting an approved change live?",
+    help: "Visibility results are directly tied to this.",
+    options: ["Within 24 hours", "2\u20135 business days", "1\u20132 weeks", "More than 2 weeks", "Hard to say"] },
+  { section: "s4", id: "tech_constraints", type: "long",     required: false,
+    q: "Any <em>technical constraints</em> we should know about up front?",
+    help: "Locked templates, slow deploys, CMS without schema support, hard-coded sections, etc." },
+
+  // S5
+  { section: "s5", id: "_access_notice", type: "notice",
+    q: "Access \u2014 not here, but over a secure channel.",
+    help: "<strong>Important:</strong> never share passwords or tokens through this form. Here we only record <strong>who</strong> will provide access. After kickoff we\u2019ll request credentials through an encrypted channel (a shared workspace, password manager, or similar)." },
+  { section: "s5", id: "other_tools",    type: "multi",      required: false,
+    q: "Which other <em>analytics or marketing tools</em> do you use?",
+    options: ["Google Analytics 4", "Google Search Console", "Google Tag Manager", "Ahrefs", "SEMrush", "Similarweb", "HubSpot", "Mailchimp / Klaviyo", "Hotjar", "Mixpanel", "Meta Ads", "Google Ads", "TikTok Ads", "LinkedIn Ads", "Other", "None"] },
+
+  // S6
+  { section: "s6", id: "brand_guidelines_link", type: "long", required: false,
+    q: "Is there a <em>brand guideline, tone of voice</em> or editorial handbook we should follow?",
+    help: "Paste links (Notion, Google Drive, Figma). You can upload a file in the next step." },
+  { section: "s6", id: "brand_guidelines_file", type: "file", required: false,
+    q: "If it\u2019s a PDF / DOCX, upload it here.",
+    help: "Optional. Skip if you already shared a link." },
+  { section: "s6", id: "forbidden_topics", type: "long",     required: false,
+    q: "Are there any <em>off-limits topics, claims or competitors</em> we should not mention?",
+    help: "Direct or indirect. Helps us avoid legal, compliance or reputational issues in anything public." },
+  { section: "s6", id: "regulated_market", type: "choice",   required: true,
+    q: "Is your industry on a <em>regulated market</em>? (e.g. healthcare, finance, legal, supplements, alcohol)",
+    options: ["Yes \u2014 strict compliance", "Partly", "No"] },
+  { section: "s6", id: "compliance_approver", type: "long",  required: false,
+    q: "Who is the legal / compliance <em>approver</em>, and what\u2019s the typical turnaround?",
+    when: function(a){ return a.regulated_market && a.regulated_market !== "No"; } },
+
+  // S7
+  { section: "s7", id: "comm_channel",   type: "choice",     required: true,
+    q: "Preferred main <em>communication channel</em> during the project?",
+    help: "A shared workspace channel (Slack, Teams) is ideal \u2014 fast feedback, everything documented.",
+    options: ["Shared Slack / Teams channel (recommended)", "Email", "Other"] },
+  { section: "s7", id: "cadence",        type: "choice",     required: true,
+    q: "Weekly status rhythm \u2014 what\u2019s your <em>preference</em>?",
+    options: [
+      "Weekly 30-min video sync + written report",
+      "Written weekly report only",
+      "Bi-weekly video + monthly deep-dive review"
+    ] },
+  { section: "s7", id: "low_capacity",   type: "long",       required: false,
+    q: "Any periods in the <em>next 2 months</em> when you\u2019ll have limited capacity?",
+    help: "Holidays, a product launch, a major event, a trade show \u2014 we\u2019ll align the roadmap around it." },
+
+  // S8
+  { section: "s8", id: "final_notes",    type: "long",       required: false,
+    q: "Anything else <em>we should know</em> that we didn\u2019t ask about?",
+    help: "The best insight often shows up here. We leave room for it." },
+
+  { type: "submit" },
+  { type: "thanks" },
+];
+
+/* ─────────────────────────────────────────────────────────────
+   STATE + RENDER
+   ───────────────────────────────────────────────────────────── */
+const state = { idx: 0, answers: {}, lastSection: null };
+const card = document.getElementById("card");
+const progressBar = document.getElementById("progressBar");
+const stepPill = document.getElementById("stepPill");
+const chapter = document.getElementById("chapter");
+const chapterEmoji = document.getElementById("chapterEmoji");
+const chapterKicker = document.getElementById("chapterKicker");
+const chapterTitle = document.getElementById("chapterTitle");
+const sparklesEl = document.getElementById("sparkles");
+
+function visibleSteps() { return STEPS.filter(function(s){ return !s.when || s.when(state.answers); }); }
+function currentStep() { return visibleSteps()[state.idx]; }
+function totalRealSteps() { return visibleSteps().filter(function(s){ return s.id && s.type !== "notice"; }).length; }
+
+function showChapter(sectionId) {
+  const info = SECTION_DISPLAY[sectionId];
+  if (!info) return Promise.resolve();
+  chapterEmoji.textContent = info.emoji;
+  chapterKicker.textContent = "Section " + sectionId.replace("s", "0");
+  chapterTitle.textContent = info.title;
+  chapter.classList.add("on");
+  return new Promise(function(resolve){
+    setTimeout(function(){
+      chapter.classList.remove("on");
+      setTimeout(resolve, 380);
+    }, 950);
+  });
+}
+
+async function render() {
+  const steps = visibleSteps();
+  if (state.idx < 0) state.idx = 0;
+  if (state.idx >= steps.length) state.idx = steps.length - 1;
+  const step = steps[state.idx];
+
+  // Chapter overlay when section changes (skip on welcome/submit/thanks)
+  if (step.section && step.section !== state.lastSection && !["welcome","submit","thanks"].includes(step.type)) {
+    state.lastSection = step.section;
+    await showChapter(step.section);
+  } else if (!step.section) {
+    state.lastSection = null;
+  }
+
+  const realIndex = steps.slice(0, state.idx + 1).filter(function(s){ return s.id && s.type !== "notice"; }).length;
+  const total = totalRealSteps();
+  progressBar.style.width = Math.round((realIndex / Math.max(total, 1)) * 100) + "%";
+  stepPill.textContent = step.type === "welcome" || step.type === "thanks"
+    ? (step.type === "thanks" ? "\u2713" : "00")
+    : String(realIndex).padStart(2, "0") + " / " + String(total).padStart(2, "0");
+
+  card.innerHTML = renderStep(step);
+  card.classList.add("enter");
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){ card.classList.remove("enter"); }); });
+  wire(step);
+
+  if (step.type === "thanks") spawnSparkles();
+
+  const focusEl = card.querySelector("input, textarea, select, .choice");
+  if (focusEl && focusEl.focus) setTimeout(function(){ focusEl.focus(); }, 80);
+}
+
+function sectionOf(step) { return SECTION_DISPLAY[step.section]; }
+
+function renderStep(step) {
+  if (step.type === "welcome") return '' +
+    '<div class="splash">' +
+      '<img src="/static/logo.png" alt="" class="splash-logo" onerror="this.style.display=\'none\';" />' +
+      '<div class="kicker">' + H.welcome_kicker + '</div>' +
+      '<h1>' + H.welcome_h1 + '</h1>' +
+      '<p>' + H.welcome_p1 + '</p>' +
+      '<p>' + H.welcome_p2 + '</p>' +
+      '<div class="actions">' +
+        '<button class="btn btn-primary" data-next>' + H.welcome_btn + ' <span class="arrow">\u2192</span></button>' +
+        '<span class="hint">Enter <span class="kbd">\u21B5</span></span>' +
+      '</div>' +
+      '<div class="meta">' +
+        '<span><strong>~5 min</strong> to complete</span>' +
+        '<span><strong>18</strong> questions</span>' +
+        '<span><strong>Autosaved</strong></span>' +
+      '</div>' +
+    '</div>';
+
+  if (step.type === "submit") return '' +
+    '<div class="splash">' +
+      '<div class="kicker">' + H.submit_kicker + '</div>' +
+      '<h1>' + H.submit_h1 + '</h1>' +
+      '<p>' + H.submit_p1 + '</p>' +
+      '<div class="actions">' +
+        '<button class="btn btn-primary" id="submitBtn">' + H.submit_btn + ' <span class="arrow">\u2192</span></button>' +
+        '<button class="btn btn-ghost" data-prev>' + H.submit_back + '</button>' +
+      '</div>' +
+      '<div class="error" id="submitError" style="display:none"></div>' +
+    '</div>';
+
+  if (step.type === "thanks") return '' +
+    '<div class="splash">' +
+      '<div class="kicker">' + H.thanks_kicker + '</div>' +
+      '<h1>' + H.thanks_h1 + '</h1>' +
+      '<p>' + H.thanks_p1 + '</p>' +
+      '<p>' + H.thanks_p2 + '</p>' +
+      '<div class="meta"><span>' + H.thanks_sig + '</span></div>' +
+    '</div>';
+
+  const sec = sectionOf(step);
+  const secTag = sec
+    ? '<div class="section-tag"><span class="section-emoji">' + sec.emoji + '</span>' + sec.title + '</div>'
+    : '';
+  const realN = visibleSteps().slice(0, state.idx + 1).filter(function(s){ return s.id && s.type !== "notice"; }).length;
+  const num = '<div class="q-number">' + String(realN).padStart(2, "0") + '</div>';
+  const help = step.help ? '<div class="q-help">' + step.help + '</div>' : '';
+
+  if (step.type === "notice") return '' +
+    secTag +
+    '<h2 class="q-title">' + step.q + '</h2>' +
+    '<div class="notice">' + step.help + '</div>' +
+    '<div class="actions">' +
+      '<button class="btn btn-primary" data-next>Got it <span class="arrow">\u2192</span></button>' +
+      '<button class="btn btn-ghost" data-prev>Back</button>' +
+    '</div>';
+
+  const v = state.answers[step.id] !== undefined ? state.answers[step.id] : (step.type === "multi" ? [] : "");
+
+  let field = "";
+  if (step.type === "text" || step.type === "email" || step.type === "url") {
+    field = '<input type="' + step.type + '" id="f" value="' + escapeAttr(v) + '" placeholder="' + escapeAttr(step.placeholder || "Start typing\u2026") + '" autocomplete="off" />';
+  } else if (step.type === "long") {
+    field = '<textarea id="f" placeholder="' + escapeAttr(step.placeholder || "Start typing\u2026") + '">' + escapeHtml(v) + '</textarea>';
+  } else if (step.type === "select") {
+    field = '<select id="f"><option value="" disabled ' + (v ? "" : "selected") + '>Choose\u2026</option>' +
+      step.options.map(function(o){ return '<option value="' + escapeAttr(o) + '" ' + (v === o ? "selected" : "") + '>' + escapeHtml(o) + '</option>'; }).join("") +
+      '</select>';
+  } else if (step.type === "choice") {
+    field = '<div class="choices" id="f">' +
+      step.options.map(function(o, i){
+        return '<label class="choice ' + (v === o ? "selected" : "") + '" data-val="' + escapeAttr(o) + '">' +
+          '<span class="choice-key">' + String.fromCharCode(65 + i) + '</span>' +
+          '<span class="choice-label">' + escapeHtml(o) + '</span>' +
+          '</label>';
+      }).join("") + '</div>';
+  } else if (step.type === "multi") {
+    const arr = Array.isArray(v) ? v : [];
+    field = '<div class="choices" id="f">' +
+      step.options.map(function(o, i){
+        return '<label class="choice ' + (arr.includes(o) ? "selected" : "") + '" data-val="' + escapeAttr(o) + '">' +
+          '<span class="choice-key">' + (arr.includes(o) ? "\u2713" : String.fromCharCode(65 + i)) + '</span>' +
+          '<span class="choice-label">' + escapeHtml(o) + '</span>' +
+          '</label>';
+      }).join("") + '</div>';
+  } else if (step.type === "file") {
+    field = '' +
+      '<label class="file-drop" for="fileInput">' +
+        '<div>Click or drop a file here (PDF / DOCX)</div>' +
+        '<div class="file-name" id="fileName">' + (v && v.name ? escapeHtml(v.name) : "") + '</div>' +
+      '</label>' +
+      '<input type="file" id="fileInput" accept=".pdf,.doc,.docx" style="display:none" />';
+  }
+
+  return '' +
+    secTag +
+    num +
+    '<h2 class="q-title">' + step.q + '</h2>' +
+    help +
+    '<div class="field" id="fieldWrap">' + field + '</div>' +
+    '<div class="actions">' +
+      '<button class="btn btn-primary" id="nextBtn">OK <span class="arrow">\u2192</span></button>' +
+      '<button class="btn btn-ghost" data-prev>Back</button>' +
+      '<span class="hint">press Enter <span class="kbd">\u21B5</span></span>' +
+    '</div>' +
+    '<div class="error" id="err" style="display:none"></div>';
+}
+
+function wire(step) {
+  card.querySelectorAll("[data-next]").forEach(function(b){ b.onclick = function(){ advance(); }; });
+  card.querySelectorAll("[data-prev]").forEach(function(b){ b.onclick = function(){ state.idx--; render(); }; });
+
+  if (step.type === "welcome" || step.type === "notice") return;
+
+  if (step.type === "submit") {
+    document.getElementById("submitBtn").onclick = submit;
+    return;
+  }
+  if (step.type === "thanks") return;
+
+  const nextBtn = document.getElementById("nextBtn");
+  const fieldWrap = document.getElementById("fieldWrap");
+
+  if (step.type === "choice") {
+    card.querySelectorAll(".choice").forEach(function(el){
+      el.onclick = function(){
+        state.answers[step.id] = el.dataset.val;
+        advance();
+      };
+    });
+  } else if (step.type === "multi") {
+    card.querySelectorAll(".choice").forEach(function(el){
+      el.onclick = function(){
+        const cur = Array.isArray(state.answers[step.id]) ? state.answers[step.id].slice() : [];
+        const val = el.dataset.val;
+        const i = cur.indexOf(val);
+        if (i >= 0) cur.splice(i, 1); else cur.push(val);
+        state.answers[step.id] = cur;
+        render();
+      };
+    });
+    nextBtn.onclick = function(){ advance(); };
+  } else if (step.type === "file") {
+    const input = document.getElementById("fileInput");
+    const drop = card.querySelector(".file-drop");
+    drop.addEventListener("dragover", function(e){ e.preventDefault(); drop.style.borderColor = "var(--gold)"; });
+    drop.addEventListener("dragleave", function(){ drop.style.borderColor = ""; });
+    drop.addEventListener("drop", function(e){ e.preventDefault(); if (e.dataTransfer.files[0]) onFile(e.dataTransfer.files[0]); });
+    input.onchange = function(){ if (input.files[0]) onFile(input.files[0]); };
+    function onFile(f) {
+      state.answers[step.id] = { name: f.name, size: f.size };
+      document.getElementById("fileName").textContent = f.name;
+    }
+    nextBtn.onclick = function(){ advance(); };
+  } else {
+    const f = document.getElementById("f");
+    f.oninput = function(){ state.answers[step.id] = f.value.trim(); };
+    f.onfocus = function(){ if (fieldWrap) fieldWrap.classList.add("focused"); };
+    f.onblur = function(){ if (fieldWrap) fieldWrap.classList.remove("focused"); };
+    if (step.type === "select") f.onchange = function(){ state.answers[step.id] = f.value; advance(); };
+    nextBtn.onclick = function(){ advance(); };
+  }
+}
+
+function validate(step) {
+  if (!step.required) return true;
+  const v = state.answers[step.id];
+  if (step.type === "multi") return Array.isArray(v) && v.length > 0;
+  if (step.type === "email") return typeof v === "string" && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  if (step.type === "url") return typeof v === "string" && /^https?:\/\/.+/i.test(v);
+  return typeof v === "string" ? v.trim().length > 0 : !!v;
+}
+
+function advance() {
+  const step = currentStep();
+  if (step && step.id && !validate(step)) {
+    const e = document.getElementById("err");
+    if (e) { e.textContent = "This field is required \u2014 let's fill it in."; e.style.display = "block"; }
+    return;
+  }
+  state.idx++;
+  render();
+}
+
+document.addEventListener("keydown", function(e){
+  if (e.key === "Enter" && !e.shiftKey) {
+    const step = currentStep();
+    if (!step) return;
+    if (["long"].includes(step.type)) return;
+    e.preventDefault();
+    if (step.type === "submit") return submit();
+    advance();
+  }
+});
+
+/* ─────────────────────────────────────────────────────────────
+   SPARKLES (thanks page)
+   ───────────────────────────────────────────────────────────── */
+function spawnSparkles() {
+  sparklesEl.innerHTML = "";
+  for (let i = 0; i < 24; i++) {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.top = 40 + Math.random() * 40 + "%";
+    s.style.setProperty("--dx", (Math.random() * 120 - 60) + "px");
+    s.style.setProperty("--dy", (-80 - Math.random() * 120) + "px");
+    s.style.animationDelay = (Math.random() * 1.8) + "s";
+    s.style.animationDuration = (2.5 + Math.random() * 2) + "s";
+    sparklesEl.appendChild(s);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   SUBMIT
+   ───────────────────────────────────────────────────────────── */
+async function submit() {
+  const btn = document.getElementById("submitBtn");
+  const err = document.getElementById("submitError");
+  btn.disabled = true; btn.innerHTML = "Sending\u2026";
+  const payload = { answers: state.answers };
+  try {
+    const r = await fetch("/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const text = await r.text();
+    let j = {};
+    try { j = JSON.parse(text); } catch (_) { /* non-JSON response */ }
+    if (!r.ok) throw new Error("HTTP " + r.status + (j.error ? ": " + j.error : ""));
+    if (!j.success) throw new Error(j.error || "Unknown error");
+    state.idx++; render();
+  } catch (e) {
+    btn.disabled = false; btn.innerHTML = "Submit <span class=\"arrow\">\u2192</span>";
+    err.textContent = "Error: " + e.message + ". Please try again, or email us if it keeps failing.";
+    err.style.display = "block";
+  }
+}
+
+/* utilities */
+function escapeHtml(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;" })[c]; }); }
+function escapeAttr(s){ return escapeHtml(s).replace(/\n/g, " "); }
+
+render();
+</script>
+</body>
+</html>

@@ -70,6 +70,20 @@
     background: rgba(255,255,255,0.5);
   }
 
+  /* ── Language switch ── */
+  .topbar-right { display: flex; align-items: center; gap: 14px; }
+  .lang-switch {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em;
+    text-transform: uppercase; padding: 4px 10px;
+    border: 1px solid var(--line); border-radius: 999px;
+    background: rgba(255,255,255,0.5); color: var(--ink-mute);
+    text-decoration: none; transition: all 180ms ease;
+  }
+  .lang-switch:hover { color: var(--gold-deep); border-color: var(--gold-line); background: var(--gold-soft); }
+  .lang-switch .active { color: var(--ink); font-weight: 600; }
+  .lang-switch .sep { color: var(--ink-quiet); margin: 0 2px; }
+
   /* ── Progress ── */
   .progress { height: 2px; background: var(--line); position: relative; overflow: hidden; }
   .progress-bar {
@@ -300,7 +314,10 @@
     <span class="brand-mark" id="brandTextFallback" style="display:none">Momentus</span>
     <span class="brand-sub">Kickoff Onboarding</span>
   </div>
-  <div class="step-pill" id="stepPill">01</div>
+  <div class="topbar-right">
+    <a class="lang-switch" href="/en" title="English version"><span class="active">HU</span><span class="sep">/</span>EN</a>
+    <div class="step-pill" id="stepPill">01</div>
+  </div>
 </div>
 <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
 

@@ -261,12 +261,17 @@ async def _startup():
 
 @app.get("/")
 async def index():
-    return FileResponse(BASE_DIR / "templates" / "index.html", media_type="text/html")
+    return FileResponse(BASE_DIR / "templates" / "index_en.html", media_type="text/html")
 
 
 @app.get("/en")
 async def index_en():
     return FileResponse(BASE_DIR / "templates" / "index_en.html", media_type="text/html")
+
+
+@app.get("/hu")
+async def index_hu():
+    return FileResponse(BASE_DIR / "templates" / "index.html", media_type="text/html")
 
 
 @app.get("/api/health")

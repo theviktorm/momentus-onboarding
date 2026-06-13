@@ -315,7 +315,7 @@
     <span class="brand-sub">Client Onboarding</span>
   </div>
   <div class="topbar-right">
-    <a class="lang-switch" href="/hu" title="Magyar verzió"><span class="active">EN</span><span class="sep">/</span>HU</a>
+    <a class="lang-switch" href="/hu" title="Magyar"><span class="active">EN</span><span class="sep">/</span>HU</a>
     <div class="step-pill" id="stepPill">01</div>
   </div>
 </div>
@@ -350,14 +350,14 @@ const SECTIONS = [
 
 // Display-ready titles (with proper Hungarian diacritics via Unicode escapes to keep JS parser safe)
 const SECTION_DISPLAY = {
-  "s1": { emoji: "\uD83D\uDC4B", title: "Ki vagy, \u00e9s kivel dolgozunk?" },
-  "s2": { emoji: "\uD83C\uDFAF", title: "A f\u0151f\u00f3kuszban l\u00e9v\u0151 pontok" },
-  "s3": { emoji: "\uD83D\uDD0E", title: "Versenyk\u00f6rnyezet" },
-  "s4": { emoji: "\uD83D\uDEE0\uFE0F", title: "A technikai val\u00f3s\u00e1g" },
-  "s5": { emoji: "\uD83D\uDD10", title: "Hozz\u00e1f\u00e9r\u00e9s \u2014 biztons\u00e1gos csatorn\u00e1n" },
-  "s6": { emoji: "\u2728", title: "Amit szabad, \u00e9s amit nem" },
-  "s7": { emoji: "\uD83D\uDCAC", title: "Hogyan dolgozunk egy\u00fctt" },
-  "s8": { emoji: "\uD83C\uDF1F", title: "Egy utols\u00f3 gondolat" },
+  "s1": { emoji: "\uD83D\uDC4B", title: "Who you are, who we work with" },
+  "s2": { emoji: "\uD83C\uDFAF", title: "What you actually want to win" },
+  "s3": { emoji: "\uD83D\uDD0E", title: "Your competitive landscape" },
+  "s4": { emoji: "\uD83D\uDEE0\uFE0F", title: "The technical reality" },
+  "s5": { emoji: "\uD83D\uDD10", title: "Access \u2014 over a secure channel" },
+  "s6": { emoji: "\u2728", title: "Boundaries and brand rails" },
+  "s7": { emoji: "\uD83D\uDCAC", title: "How we work together" },
+  "s8": { emoji: "\uD83C\uDF1F", title: "One last thought" },
 };
 
 // All user-facing strings use \uXXXX escapes for Hungarian diacritics to guarantee
@@ -575,7 +575,7 @@ function renderStep(step) {
       '</div>' +
       '<div class="meta">' +
         '<span><strong>~5 min</strong> to complete</span>' +
-        '<span><strong>18</strong> questions</span>' +
+        '<span><strong>~20</strong> questions</span>' +
         '<span><strong>Autosaved</strong></span>' +
       '</div>' +
     '</div>';
